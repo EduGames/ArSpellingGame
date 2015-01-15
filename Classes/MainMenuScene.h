@@ -1,9 +1,9 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __MAINMENU_SCENE_H__
+#define __MAINMENU_SCENE_H__
 
 #include "cocos2d.h"
-
-class HelloWorld : public cocos2d::Layer
+#include <ui/CocosGUI.h>
+class MainMenu : public cocos2d::Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -16,7 +16,10 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(MainMenu);
+    
+private:
+    cocos2d::Size windowSize;
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __MAINMENU_SCENE_H__

@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 
@@ -21,7 +21,7 @@ void AppDelegate::initGLContextAttrs()
 
     GLView::setGLContextAttrs(glContextAttrs);
 }
-
+static cocos2d::Size designResolutionSize = cocos2d::Size(570, 360);
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
@@ -30,15 +30,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::create("My Game");
         director->setOpenGLView(glview);
     }
-
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
     // turn on display FPS
-    director->setDisplayStats(true);
+//    director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = MainMenu::createScene();
 
     // run
     director->runWithScene(scene);

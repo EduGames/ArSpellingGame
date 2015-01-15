@@ -1,14 +1,15 @@
-#include "HelloWorldScene.h"
+#include "MainMenuScene.h"
+#include "FruitsPage.h"
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
+Scene* MainMenu::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+    auto layer = MainMenu::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -18,7 +19,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool MainMenu::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -38,7 +39,7 @@ bool HelloWorld::init()
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+                                           CC_CALLBACK_1(MainMenu::menuCloseCallback, this));
     
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
@@ -48,35 +49,26 @@ bool HelloWorld::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-
-    // add the label as a child to this layer
-    this->addChild(label, 1);
-
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
+    auto bg = Sprite::create("images/ui/background2.jpg");
+    bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    addChild(bg,-1);
     
+    auto pageView = ui::PageView::create();
+    pageView->setTouchEnabled(true);
+    pageView->setSize(visibleSize);
+    pageView->setCustomScrollThreshold(0.2);
+    
+    pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "carrot","cauliflower"}));
+    pageView->addPage(FruitsPage::createWithList(visibleSize, {"cauliflower", "cherry"}));
+    pageView->addPage(FruitsPage::createWithList(visibleSize, {"carrot", "carrot","banana","banana"}));
+    pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "banana"}));
+    
+    this->addChild(pageView);
     return true;
 }
 
-
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void MainMenu::menuCloseCallback(Ref* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
