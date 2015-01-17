@@ -6,6 +6,7 @@
  */
 
 #include "FruitsPage.h"
+#include "Item.h"
 USING_NS_CC;
 
 FruitsPage* FruitsPage::createWithList(Size size, std::vector<std ::string> images) {
@@ -25,31 +26,17 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
     layout->setLayoutType(ui::Layout::Type::HORIZONTAL);
     layout->setContentSize(Size(360, getContentSize().height / 2.5));
     layout->setLayoutParameter(lp);
-//    layout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-//    layout->setBackGroundColor(Color3B::BLUE);
-    
+
     auto layout2 = ui::Layout::create();
     layout2->setLayoutType(ui::Layout::Type::HORIZONTAL);
     layout2->setContentSize(Size(360, getContentSize().height / 2.5));
     layout2->setLayoutParameter(lp);
     
-    int halfSize = images.size() / 2;
+    unsigned int halfSize = 3;//images.size() / 2;
     
-    for (int i = 0; i < images.size(); i++) {
-        std::string image = images.at(i);
-        
-        auto imageContainer = ui::Layout::create();
-        imageContainer->setContentSize(Size(120,120));
-        imageContainer->setLayoutType(ui::Layout::Type::RELATIVE);
-        
-        
-        auto imageViewBG = ui::ImageView::create("images/ui/yellow-square-big.png");
-        auto imageView = ui::ImageView::create("images/fruits/"+image+".png");
-        
-        imageContainer->addChild(imageViewBG);
-        imageContainer->addChild(imageView);
-        imageContainer->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
-        imageContainer->setScale(0.55);
+    for (unsigned int i = 0; i < images.size(); i++) {
+        auto imageContainer = Item::create();
+        imageContainer->setImage(images.at(i));
         
         if(i < halfSize){
             layout->addChild(imageContainer);

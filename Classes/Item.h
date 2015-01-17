@@ -8,8 +8,13 @@
 #ifndef ITEM_H
 #define	ITEM_H
 #include "cocos2d.h"
-class Item : public cocos2d::Node {
+#include <ui/CocosGUI.h>
+class Item : public cocos2d::ui::Layout {
 public:
+    CREATE_FUNC(Item);
+    bool init();
+    void setImage(std::string image);
+    
 private:
 
 };
