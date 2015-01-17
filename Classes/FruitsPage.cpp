@@ -37,6 +37,9 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
     for (unsigned int i = 0; i < images.size(); i++) {
         auto imageContainer = Item::create();
         imageContainer->setImage(images.at(i));
+        imageContainer->setEnabled(true);
+        imageContainer->setTouchEnabled(true);
+        imageContainer->addClickEventListener(CC_CALLBACK_1(FruitsPage::onClick, this));
         
         if(i < halfSize){
             layout->addChild(imageContainer);
@@ -46,4 +49,9 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
     }
     addChild(layout);
     addChild(layout2);
+}
+
+void FruitsPage::onClick(Ref* pSender){
+    Item* slider = dynamic_cast<Item*>(pSender);
+    CCLOG(slider->name.c_str());
 }

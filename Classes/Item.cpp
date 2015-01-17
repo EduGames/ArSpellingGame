@@ -10,16 +10,23 @@ USING_NS_CC;
 bool Item::init() {
     if(ui::Layout::init()){
         setContentSize(Size(120,120));
-        setLayoutType(ui::Layout::Type::RELATIVE);
-        setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
-        setScale(0.55);
+        setLayoutType(ui::Layout::Type::ABSOLUTE);
         
-        addChild(ui::ImageView::create("images/ui/yellow-square-big.png"));
+        auto i = ui::ImageView::create("images/ui/yellow-square-big.png");
+        i->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+        i->setScale(0.50);
+        i->setPosition(Vec2(getContentSize().width/2,getContentSize().height/2));
+        addChild(i);
         return true;
     }
     return false;
 }
 
 void Item::setImage(std::string image) {
-    addChild(ui::ImageView::create("images/fruits/"+image+".png"));
+    auto i = ui::ImageView::create("images/fruits/"+image+".png");
+    i->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    i->setScale(0.50);
+    i->setPosition(Vec2(getContentSize().width/2,getContentSize().height/2));
+    addChild(i);
+    name = image;
 }

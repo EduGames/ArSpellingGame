@@ -15,6 +15,7 @@ public:
     static FruitsPage* createWithList(cocos2d::Size size, std::vector<std ::string> images);
 private:
     void addItems(std::vector<std ::string> images);
+    void onClick(cocos2d::Ref* pSender);
 };
 
 #endif	/* FRUITSPAGE_H */

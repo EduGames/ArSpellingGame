@@ -12,7 +12,6 @@ bool PageViewWIndicator::init() {
     if(ui::Layout::init()){
         setLayoutType(ui::LayoutType::VERTICAL);
         pageView = ui::PageView::create();
-        pageView->setTouchEnabled(true);
         pageView->setCustomScrollThreshold(0.4);
         _indicator = PageIndicator::create();
         pageView->setContentSize(Size(570,320));

@@ -14,7 +14,7 @@ public:
     CREATE_FUNC(Item);
     bool init();
     void setImage(std::string image);
-    
+    std::string name;
 private:
 
 };
