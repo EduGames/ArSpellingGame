@@ -119,6 +119,8 @@ set(GAME_SRC
   Classes/Item.cpp
   Classes/FruitsPage.cpp
   Classes/PageViewWIndicator.cpp
+  Classes/PageIndicator.cpp
+  Classes/PageIndicatorItem.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -128,6 +130,8 @@ set(GAME_HEADERS
   Classes/Item.h
   Classes/FruitsPage.h
   Classes/PageViewWIndicator.h
+  Classes/PageIndicator.h
+  Classes/PageIndicatorItem.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 

@@ -13,7 +13,6 @@ FruitsPage* FruitsPage::createWithList(Size size, std::vector<std ::string> imag
     fp->setLayoutType(ui::Layout::Type::VERTICAL);
     fp->setContentSize(size);
     fp->addItems(images);
-    fp->setPosition(Vec2(fp->getPositionX(), fp->getPositionY() + (size.height / 4) ));
     return fp;
 }
 
@@ -26,6 +25,8 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
     layout->setLayoutType(ui::Layout::Type::HORIZONTAL);
     layout->setContentSize(Size(360, getContentSize().height / 2.5));
     layout->setLayoutParameter(lp);
+//    layout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+//    layout->setBackGroundColor(Color3B::BLUE);
     
     auto layout2 = ui::Layout::create();
     layout2->setLayoutType(ui::Layout::Type::HORIZONTAL);
@@ -47,6 +48,7 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
         
         imageContainer->addChild(imageViewBG);
         imageContainer->addChild(imageView);
+        imageContainer->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
         imageContainer->setScale(0.55);
         
         if(i < halfSize){

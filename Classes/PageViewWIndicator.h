@@ -9,14 +9,17 @@
 #define	PAGEVIEWWINDICATOR_H
 
 #include "cocos2d.h"
+#include "PageIndicator.h"
 #include <ui/CocosGUI.h>
-class PageViewWIndicator : public cocos2d::ui::PageView{
+class PageViewWIndicator : public cocos2d::ui::Layout{
 public:
-    CREATE_FUNC(PageViewWIndicator);
-    static PageViewWIndicator* createW();
+    PageIndicator* _indicator;
+    cocos2d::ui::PageView* pageView;
+    static PageViewWIndicator* create();
+    void addPage(Layout* page);
+    void setContentSize(const cocos2d::Size& contentSize);
 private:
-
+    
 };
 
 #endif	/* PAGEVIEWWINDICATOR_H */
-
