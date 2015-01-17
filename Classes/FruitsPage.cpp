@@ -12,19 +12,25 @@ FruitsPage* FruitsPage::createWithList(Size size, std::vector<std ::string> imag
     FruitsPage* fp = FruitsPage::create();
     fp->setLayoutType(ui::Layout::Type::VERTICAL);
     fp->setContentSize(size);
-    fp->createRow(images);
+    fp->addItems(images);
+    fp->setPosition(Vec2(fp->getPositionX(), fp->getPositionY() + (size.height / 4) ));
     return fp;
 }
 
 
-void FruitsPage::createRow(std::vector<std ::string> images) {
+void FruitsPage::addItems(std::vector<std ::string> images) {
+    auto lp = ui::LinearLayoutParameter::create();
+    lp->setGravity(ui::LinearGravity::CENTER_HORIZONTAL);
+    
     auto layout = ui::Layout::create();
     layout->setLayoutType(ui::Layout::Type::HORIZONTAL);
-    layout->setContentSize(Size(getContentSize().width - 150,getContentSize().height / 3));
+    layout->setContentSize(Size(360, getContentSize().height / 2.5));
+    layout->setLayoutParameter(lp);
     
     auto layout2 = ui::Layout::create();
     layout2->setLayoutType(ui::Layout::Type::HORIZONTAL);
-    layout2->setContentSize(Size(getContentSize().width - 150,getContentSize().height / 3));
+    layout2->setContentSize(Size(360, getContentSize().height / 2.5));
+    layout2->setLayoutParameter(lp);
     
     int halfSize = images.size() / 2;
     

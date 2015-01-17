@@ -1,6 +1,6 @@
 #include "MainMenuScene.h"
 #include "FruitsPage.h"
-
+#include "PageViewWIndicator.h"
 USING_NS_CC;
 
 Scene* MainMenu::createScene()
@@ -54,14 +54,12 @@ bool MainMenu::init()
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     addChild(bg,-1);
     
-    auto pageView = ui::PageView::create();
-    pageView->setTouchEnabled(true);
+    auto pageView = PageViewWIndicator::createW();
     pageView->setSize(visibleSize);
-    pageView->setCustomScrollThreshold(0.2);
     
     pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "carrot","cauliflower"}));
-    pageView->addPage(FruitsPage::createWithList(visibleSize, {"cauliflower", "cherry"}));
-    pageView->addPage(FruitsPage::createWithList(visibleSize, {"carrot", "carrot","banana","banana"}));
+    pageView->addPage(FruitsPage::createWithList(visibleSize, {"cauliflower", "cherry", "carrot","cauliflower", "carrot","cauliflower"}));
+    pageView->addPage(FruitsPage::createWithList(visibleSize, {"carrot", "carrot","banana","banana", "carrot","cauliflower"}));
     pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "banana"}));
     
     this->addChild(pageView);

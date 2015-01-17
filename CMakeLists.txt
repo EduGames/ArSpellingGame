@@ -116,16 +116,18 @@ include_directories(
 set(GAME_SRC
   Classes/AppDelegate.cpp
   Classes/MainMenuScene.cpp
-  Classes/MenuItem.cpp
+  Classes/Item.cpp
   Classes/FruitsPage.cpp
+  Classes/PageViewWIndicator.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/MainMenuScene.h
-  Classes/MenuItem.h
+  Classes/Item.h
   Classes/FruitsPage.h
+  Classes/PageViewWIndicator.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 

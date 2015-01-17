@@ -14,7 +14,7 @@ public:
     CREATE_FUNC(FruitsPage);
     static FruitsPage* createWithList(cocos2d::Size size, std::vector<std ::string> images);
 private:
-    void createRow(std::vector<std ::string> images);
+    void addItems(std::vector<std ::string> images);
 };
 
 #endif	/* FRUITSPAGE_H */
