@@ -12,10 +12,13 @@
 #include "PageIndicatorItem.h"
 class PageIndicator : public cocos2d::ui::Layout{
 public:
+    CREATE_FUNC(PageIndicator);
+    bool init();
     void addPage();
-    static PageIndicator* create();
+    void setCurrentPage(int index);
 //private:
     std::vector<PageIndicatorItem* > list;
+    cocos2d::ui::ImageView* cur_ind;
 };
 
 #endif	/* PAGEINDECATOR_H */

@@ -8,9 +8,29 @@
 #include "PageIndicatorItem.h"
 USING_NS_CC;
 
-PageIndicatorItem* PageIndicatorItem::create() {
-    auto iv = static_cast<PageIndicatorItem*>(ui::ImageView::create("images/ui/Screen_indicator_inactive-hd.png"));
-    iv->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    iv->setScale(0.5);
-    return iv;
+bool PageIndicatorItem::init() {
+    if(ui::Layout::init()){
+        setLayoutType(ui::LayoutType::RELATIVE);
+        setContentSize(Size(35,36));
+        active = ui::ImageView::create("images/ui/Screen_indicator_active-hd.png");
+        active->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+        active->setScale(0.5);
+
+        inactive = ui::ImageView::create("images/ui/Screen_indicator_inactive-hd.png");
+        inactive->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+        inactive->setScale(0.5);
+        inactive->setVisible(false);
+        addChild(active);
+        addChild(inactive);
+        return true;
+    }
+    return false;
+}
+
+void PageIndicatorItem::activate() {
+    inactive->setVisible(false);
+}
+
+void PageIndicatorItem::deactivate() {
+    inactive->setVisible(true);
 }

@@ -54,7 +54,7 @@ bool MainMenu::init()
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     addChild(bg,-1);
     
-    auto pageView = PageViewWIndicator::create();
+    PageViewWIndicator* pageView = PageViewWIndicator::create();
     pageView->setContentSize(visibleSize);
     
     pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "carrot","cauliflower"}));

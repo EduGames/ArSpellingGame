@@ -8,26 +8,31 @@
 #include "PageViewWIndicator.h"
 USING_NS_CC;
 
-PageViewWIndicator* PageViewWIndicator::create() {
-    PageViewWIndicator* view = static_cast<PageViewWIndicator*>(ui::Layout::create());
-    view->setLayoutType(ui::LayoutType::VERTICAL);
-    view->pageView = ui::PageView::create();
-    view->pageView->setTouchEnabled(true);
-    view->pageView->setCustomScrollThreshold(0.4);
-    view->_indicator = PageIndicator::create();
-    view->pageView->setContentSize(Size(570,320));
-    view->_indicator->setContentSize(Size(120,120));
-    view->addChild(view->pageView);
-    view->addChild(view->_indicator);
-
-    return view;
+bool PageViewWIndicator::init() {
+    if(ui::Layout::init()){
+        setLayoutType(ui::LayoutType::VERTICAL);
+        pageView = ui::PageView::create();
+        pageView->setTouchEnabled(true);
+        pageView->setCustomScrollThreshold(0.4);
+        _indicator = PageIndicator::create();
+        pageView->setContentSize(Size(570,320));
+        _indicator->setContentSize(Size(120,120));
+        addChild(pageView);
+        addChild(_indicator);
+        pageView->addEventListener(CC_CALLBACK_0(PageViewWIndicator::updatePageIndicator, this));
+        return true;
+    }
+    return false;
 }
 
 void PageViewWIndicator::addPage(Layout* page) {
     pageView->addPage(page);
     _indicator->addPage();
+    updatePageIndicator();
 }
-
-void PageViewWIndicator::setContentSize(const cocos2d::Size& contentSize) {
-    ui::Layout::setContentSize(contentSize);   
+void PageViewWIndicator::updatePageIndicator(){
+    setCurrentPage(pageView->getCurPageIndex());
+}
+void PageViewWIndicator::setCurrentPage(int index){
+    _indicator->setCurrentPage(index);
 }

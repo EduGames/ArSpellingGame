@@ -13,11 +13,13 @@
 #include <ui/CocosGUI.h>
 class PageViewWIndicator : public cocos2d::ui::Layout{
 public:
+    CREATE_FUNC(PageViewWIndicator);
     PageIndicator* _indicator;
     cocos2d::ui::PageView* pageView;
-    static PageViewWIndicator* create();
+    bool init();
     void addPage(Layout* page);
-    void setContentSize(const cocos2d::Size& contentSize);
+    void updatePageIndicator();
+    void setCurrentPage(int index);
 private:
     
 };
