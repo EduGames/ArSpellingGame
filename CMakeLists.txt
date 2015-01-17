@@ -116,6 +116,7 @@ include_directories(
 set(GAME_SRC
   Classes/AppDelegate.cpp
   Classes/MainMenuScene.cpp
+  Classes/GameScene.cpp
   Classes/Item.cpp
   Classes/FruitsPage.cpp
   Classes/PageViewWIndicator.cpp
@@ -127,6 +128,7 @@ set(GAME_SRC
 set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/MainMenuScene.h
+  Classes/GameScene.h
   Classes/Item.h
   Classes/FruitsPage.h
   Classes/PageViewWIndicator.h

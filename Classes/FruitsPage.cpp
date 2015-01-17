@@ -7,6 +7,7 @@
 
 #include "FruitsPage.h"
 #include "Item.h"
+#include "GameScene.h"
 USING_NS_CC;
 
 FruitsPage* FruitsPage::createWithList(Size size, std::vector<std ::string> images) {
@@ -53,5 +54,6 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
 
 void FruitsPage::onClick(Ref* pSender){
     Item* slider = dynamic_cast<Item*>(pSender);
-    CCLOG(slider->name.c_str());
+    auto myScene = GameScene::createScene(slider->name);
+    Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
 }
