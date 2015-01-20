@@ -7,6 +7,7 @@
 
 #include "GameScene.h"
 #include "Item.h"
+#include "Board.h"
 USING_NS_CC;
 Scene* GameScene::createScene(std::string item_name)
 {
@@ -72,5 +73,16 @@ bool GameScene::initWithItem(std::string item_name) {
     }
     targets_container->setScale(0.5);
     addChild(targets_container);
+    
+    std::vector<char> shuffled(item_name.begin(), item_name.end());
+    std::random_shuffle(shuffled.begin(),shuffled.end());
+    int i = 0;
+    for(char c : shuffled){
+        auto boardImage = Board::createWithLetter(c);
+        boardImage->setPosition(Vec2( 70, 50 + i * 50));
+        addChild(boardImage);
+        i++;
+    }
+    
     return true;
 }
