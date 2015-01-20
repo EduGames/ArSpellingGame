@@ -53,5 +53,24 @@ bool GameScene::initWithItem(std::string item_name) {
     item->setPosition(Vec2(visibleSize.width /2  + origin.x - item->getContentSize().width / 2, visibleSize.height /2 + origin.y - item->getContentSize().height / 2));
     addChild(item);
     
+    
+    auto targets_container = ui::Layout::create();
+    targets_container->setLayoutType(ui::Layout::Type::HORIZONTAL);
+    targets_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 75));
+    targets_container->setContentSize(Size(item_name.length() * (52 + 10) , 63 ));
+    
+    auto lp = ui::LinearLayoutParameter::create();
+    lp->setMargin(ui::Margin(5,0,5,0));
+    
+    for(std::string::size_type i = 0; i < item_name.size(); ++i) {
+        const char c = item_name[i];
+        auto targetImage = ui::ImageView::create("images/ui/board-target.png");
+        targetImage->setLayoutParameter(lp);
+        targetImage->setName(&c);
+        targets_container->addChild(targetImage);
+    }
+    targets_container->setScale(0.5);
+    addChild(targets_container);
     return true;
 }
