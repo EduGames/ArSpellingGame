@@ -14,8 +14,8 @@ public:
     static Board* createWithLetter(const char name);
     bool initWithLetter(const char name);
     char letter;
+//    CC_SYNTHESIZE(cocos2d::Vec2, _originalPosition, OriginalPosition);
 private:
-
 };
 
 #endif	/* BOARD_H */

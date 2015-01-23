@@ -23,5 +23,5 @@ bool Board::initWithLetter(const char c) {
     text->setString(&c);
     text->setPosition(Vec2(25,30));
     text->setFontSize(35);
-    addChild(text); 
+    addChild(text);
 }
