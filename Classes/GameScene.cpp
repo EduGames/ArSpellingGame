@@ -7,6 +7,7 @@
 
 #include "GameScene.h"
 #include "Item.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 Scene* GameScene::createScene(std::string item_name)
@@ -46,6 +47,20 @@ bool GameScene::initWithItem(std::string item_name) {
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    
+     auto closeItem = MenuItemImage::create(
+                                           "images/ui/back_btn-hd.png",
+                                           "images/ui/back_btn-hd.png",
+                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));
+    closeItem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    closeItem->setScale(0.5);
+    closeItem->setPosition(Vec2(origin.x +  closeItem->getContentSize().width/2 ,
+                                 origin.y + visibleSize.height - closeItem->getContentSize().height/2));
+
+    // create menu, it's an autorelease object
+    auto menu = Menu::create(closeItem, NULL);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
     
     auto bg = Sprite::create("images/ui/background.jpg");
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -111,7 +126,6 @@ bool GameScene::onTouchBegan(Touch* touch, Event* unused_event) {
 
 void GameScene::onTouchMoved(Touch* touch, Event* unused_event) {
     if(moving_board == nullptr) return;
-    
     moving_board->setPosition(touch->getLocation());
 }
 
@@ -134,4 +148,9 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
         moving_board->runAction(action);
     }
     moving_board = nullptr;
+}
+
+void GameScene::menuCloseCallback(Ref* pSender)
+{   auto myScene = MainMenu::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
 }

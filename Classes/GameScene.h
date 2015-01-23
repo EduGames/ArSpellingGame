@@ -36,6 +36,8 @@ private:
     Board* moving_board;
     cocos2d::Vector<Board*> boards;
     cocos2d::ui::Layout *targets_container;
+    
+    void menuCloseCallback(Ref* pSender);
 };
 
 #endif	/* GAMESCENE_H */
