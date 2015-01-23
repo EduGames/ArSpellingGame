@@ -81,7 +81,7 @@ bool GameScene::initWithItem(std::string item_name) {
     for(char& c : shuffled){
         auto boardImage = Board::createWithLetter(c);
         boardImage->setPosition(Vec2( 70, 50 + i * 50));
-//        boardImage->setOriginalPosition(Vec2( 70, 50 + i * 50));
+        boardImage->setOriginalPosition(Vec2( 70, 50 + i * 50));
         addChild(boardImage);
         boards.pushBack(boardImage);
         i++;
@@ -101,8 +101,7 @@ bool GameScene::initWithItem(std::string item_name) {
 
 bool GameScene::onTouchBegan(Touch* touch, Event* unused_event) {
     for (auto board: this->boards){
-        if(board->getBoundingBox().containsPoint(touch->getLocation())){
-            CCLOG("Gotcha !");
+        if(board->getBoundingBox().containsPoint(touch->getLocation()) && !board->IsSolved()){
             moving_board = board;
             return true;
         }
@@ -117,16 +116,18 @@ void GameScene::onTouchMoved(Touch* touch, Event* unused_event) {
 }
 
 void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
+    bool solved = false;
     for(auto target : targets_container->getChildren()){
         auto g = targets_container->convertToWorldSpace(target->getPosition());
         if(moving_board->getBoundingBox().containsPoint(g)
                 && ( moving_board->getName().at(0) == target->getName().at(0))
         ){
             moving_board->setPosition(g);
+            moving_board->setIsSolved(true);
+            solved = true;
             break;
-        }else{
-//            moving_board->setPosition(moving_board->getOriginalPosition());
         }
     }
+    if(!solved) moving_board->setPosition(moving_board->getOriginalPosition());
     moving_board = nullptr;
 }

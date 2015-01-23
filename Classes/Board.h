@@ -14,8 +14,14 @@ public:
     static Board* createWithLetter(const char name);
     bool initWithLetter(const char name);
     char letter;
-//    CC_SYNTHESIZE(cocos2d::Vec2, _originalPosition, OriginalPosition);
+    void setOriginalPosition(cocos2d::Vec2 p){_originalPosition = p;};
+    cocos2d::Vec2 getOriginalPosition(){ return _originalPosition;};
+    
+    void setIsSolved(bool s){isSolved = s;};
+    bool IsSolved(){ return isSolved;};
 private:
+    cocos2d::Vec2 _originalPosition;
+    bool isSolved;
 };
 
 #endif	/* BOARD_H */
