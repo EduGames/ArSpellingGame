@@ -137,6 +137,11 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
                 && ( moving_board->getName().at(0) == target->getName().at(0))
         ){
             moving_board->setPosition(g);
+            auto rL = RotateTo::create(0.1,30);
+            auto rR = RotateTo::create(0.1,-30);
+            auto rO = RotateTo::create(0.1,0);
+            auto seq = Sequence::create(rL,rR,rL,rO,NULL);
+            moving_board->runAction(seq);
             moving_board->setIsSolved(true);
             solved = true;
             break;
