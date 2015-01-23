@@ -128,6 +128,10 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
             break;
         }
     }
-    if(!solved) moving_board->setPosition(moving_board->getOriginalPosition());
+    if(!solved){
+        auto moveTo = MoveTo::create(0.5,moving_board->getOriginalPosition());
+        auto action = EaseElasticOut::create(moveTo, 0.5);
+        moving_board->runAction(action);
+    }
     moving_board = nullptr;
 }
