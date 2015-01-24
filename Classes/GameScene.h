@@ -36,14 +36,19 @@ private:
     cocos2d::Vec2 origin;
     
     std::string _item_name;
+    
     Board* moving_board;
     cocos2d::Vector<Board*> boards;
+    
     cocos2d::ui::Layout *targets_container;
+    
     cocos2d::ui::Layout *hint_container;
     cocos2d::Sprite* hintBtn;
     bool hintShowCompleted;
     
-    void menuCloseCallback(Ref* pSender);
+    cocos2d::MenuItemImage * nxtLevelBtn;
+    
+    void menuCloseCallback();
     void checkForGameSolved();
     void setGameSolved();
     void showNextLevelBtn();
@@ -51,6 +56,7 @@ private:
     void showHint();
     void hideHint();
     void onHintShowCompleted();
+    void goToNextLvl();
 };
 
 #endif	/* GAMESCENE_H */

@@ -8,6 +8,7 @@
 #include "GameScene.h"
 #include "Item.h"
 #include "MainMenuScene.h"
+#include "helpers/wordsXMLHelper.h"
 
 USING_NS_CC;
 Scene* GameScene::createScene(std::string item_name)
@@ -47,18 +48,28 @@ bool GameScene::initWithItem(std::string item_name) {
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
     
+    nxtLevelBtn = MenuItemImage::create(
+                                           "images/ui/next_btn-hd.png",
+                                           "images/ui/next_btn-hd.png",
+                                           CC_CALLBACK_0(GameScene::goToNextLvl, this));
+    
+    nxtLevelBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    nxtLevelBtn->setScale(0.5);
+    nxtLevelBtn->setPosition(Vec2(origin.x + visibleSize.width -  nxtLevelBtn->getContentSize().width/2 ,
+                                 origin.y + visibleSize.height /2));
+    //nxtLevelBtn->setOpacity(0);
     
     auto closeItem = MenuItemImage::create(
                                            "images/ui/back_btn-hd.png",
                                            "images/ui/back_btn-hd.png",
-                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));
+                                           CC_CALLBACK_0(GameScene::menuCloseCallback, this));
     closeItem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     closeItem->setScale(0.5);
     closeItem->setPosition(Vec2(origin.x +  closeItem->getContentSize().width/2 ,
                                  origin.y + visibleSize.height - closeItem->getContentSize().height/2));
 
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
+    auto menu = Menu::create(closeItem, nxtLevelBtn, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
     
@@ -82,7 +93,7 @@ bool GameScene::initWithItem(std::string item_name) {
     targets_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 75));
     targets_container->setContentSize(Size(item_name.length() * (52 + 10) , 63 ));
-    
+
     auto lp = ui::LinearLayoutParameter::create();
     lp->setMargin(ui::Margin(5,0,5,0));
     for(char& c : item_name) {
@@ -94,7 +105,7 @@ bool GameScene::initWithItem(std::string item_name) {
     }
     targets_container->setScale(0.5);
     addChild(targets_container);
-    
+
     std::vector<char> shuffled(item_name.begin(), item_name.end());
     std::random_shuffle(shuffled.begin(),shuffled.end());
     int i = 0;
@@ -167,8 +178,9 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
     moving_board = nullptr;
 }
 
-void GameScene::menuCloseCallback(Ref* pSender)
-{   auto myScene = MainMenu::createScene();
+void GameScene::menuCloseCallback()
+{
+    auto myScene = MainMenu::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
 }
 
@@ -181,10 +193,11 @@ void GameScene::checkForGameSolved() {
 
 void GameScene::setGameSolved() {
     CCLOG("Game Ended !!");
+    showNextLevelBtn();
 }
 
 void GameScene::showNextLevelBtn() {
-
+    nxtLevelBtn->runAction(FadeIn::create(0.2));
 }
 
 void GameScene::showHint() {
@@ -242,4 +255,9 @@ void GameScene::onHintShowCompleted() {
     auto scale = ScaleTo::create(0.2, .5);
     hintBtn->runAction(Sequence::create(scaleB,scale, NULL));
     hintShowCompleted = true;
+}
+
+void GameScene::goToNextLvl() {
+    auto myScene = GameScene::createScene(wordsXMLHelper::getNextWord(_item_name));
+    Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
 }

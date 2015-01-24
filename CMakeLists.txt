@@ -124,6 +124,7 @@ set(GAME_SRC
   Classes/PageIndicatorItem.cpp
   Classes/Board.cpp
   Classes/libs/pugixml/pugixml.cpp
+  Classes/helpers/wordsXMLHelper.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -139,6 +140,7 @@ set(GAME_HEADERS
   Classes/Board.h
   Classes/libs/pugixml/pugiconfig.hpp
   Classes/libs/pugixml/pugixml.hpp
+  Classes/helpers/wordsXMLHelper.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 

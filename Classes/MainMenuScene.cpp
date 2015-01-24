@@ -2,6 +2,7 @@
 #include "FruitsPage.h"
 #include "PageViewWIndicator.h"
 #include "libs/pugixml/pugixml.hpp"
+#include "helpers/wordsXMLHelper.h"
 USING_NS_CC;
 
 Scene* MainMenu::createScene()
