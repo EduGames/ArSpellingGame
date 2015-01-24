@@ -123,6 +123,7 @@ set(GAME_SRC
   Classes/PageIndicator.cpp
   Classes/PageIndicatorItem.cpp
   Classes/Board.cpp
+  Classes/libs/pugixml/pugixml.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -136,6 +137,8 @@ set(GAME_HEADERS
   Classes/PageIndicator.h
   Classes/PageIndicatorItem.h
   Classes/Board.h
+  Classes/libs/pugixml/pugiconfig.hpp
+  Classes/libs/pugixml/pugixml.hpp
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 

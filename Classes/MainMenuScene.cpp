@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 #include "FruitsPage.h"
 #include "PageViewWIndicator.h"
+#include "libs/pugixml/pugixml.hpp"
 USING_NS_CC;
 
 Scene* MainMenu::createScene()
@@ -57,11 +58,24 @@ bool MainMenu::init()
     PageViewWIndicator* pageView = PageViewWIndicator::create();
     pageView->setContentSize(visibleSize);
     
-    pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "carrot","cauliflower"}));
-    pageView->addPage(FruitsPage::createWithList(visibleSize, {"cauliflower", "cherry", "carrot","cauliflower", "carrot","cauliflower"}));
-    pageView->addPage(FruitsPage::createWithList(visibleSize, {"carrot", "carrot","banana","banana", "carrot","cauliflower"}));
-    pageView->addPage(FruitsPage::createWithList(visibleSize, {"banana", "banana"}));
-
+    std::vector<std::string> list;
+    std::string file_path = FileUtils::getInstance()->fullPathForFilename("words.xml");
+    pugi::xml_document _levelData;
+    _levelData.load_file(file_path.c_str());
+    auto words = _levelData.child("words").children();
+    for (pugi::xml_node word: words){
+        auto wordString = word.text().as_string();
+        list.push_back(wordString);
+        if(list.size() >= 6){
+            pageView->addPage(FruitsPage::createWithList(visibleSize, list));
+            list.clear();
+        }
+    }
+    if(list.size() >= 1){
+        pageView->addPage(FruitsPage::createWithList(visibleSize, list));
+        list.clear();
+    }
+    
     this->addChild(pageView);
     return true;
 }
