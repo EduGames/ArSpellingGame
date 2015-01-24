@@ -41,14 +41,14 @@ bool GameScene::initWithItem(std::string item_name) {
     {
         return false;
     }
-    
+    _item_name = item_name;
     moving_board = nullptr;
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    visibleSize = Director::getInstance()->getVisibleSize();
+    origin = Director::getInstance()->getVisibleOrigin();
     
     
-     auto closeItem = MenuItemImage::create(
+    auto closeItem = MenuItemImage::create(
                                            "images/ui/back_btn-hd.png",
                                            "images/ui/back_btn-hd.png",
                                            CC_CALLBACK_1(GameScene::menuCloseCallback, this));
@@ -61,6 +61,11 @@ bool GameScene::initWithItem(std::string item_name) {
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+    
+    prepareHint();
+    
+    
+    
     
     auto bg = Sprite::create("images/ui/background.jpg");
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -115,6 +120,10 @@ bool GameScene::initWithItem(std::string item_name) {
 }
 
 bool GameScene::onTouchBegan(Touch* touch, Event* unused_event) {
+    if(hintBtn->getBoundingBox().containsPoint(touch->getLocation())){
+        showHint();
+        return true;
+    }
     for (auto board: this->boards){
         if(board->getBoundingBox().containsPoint(touch->getLocation()) && !board->IsSolved()){
             moving_board = board;
@@ -130,6 +139,8 @@ void GameScene::onTouchMoved(Touch* touch, Event* unused_event) {
 }
 
 void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
+    if(hintShowCompleted) hideHint();
+    if(moving_board == nullptr) return;
     bool solved = false;
     for(auto target : targets_container->getChildren()){
         auto g = targets_container->convertToWorldSpace(target->getPosition());
@@ -144,6 +155,7 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
             moving_board->runAction(seq);
             moving_board->setIsSolved(true);
             solved = true;
+            checkForGameSolved();
             break;
         }
     }
@@ -158,4 +170,76 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
 void GameScene::menuCloseCallback(Ref* pSender)
 {   auto myScene = MainMenu::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
+}
+
+void GameScene::checkForGameSolved() {
+    for( auto board : boards){
+        if(!board->IsSolved()) return;
+    }
+    setGameSolved();
+}
+
+void GameScene::setGameSolved() {
+    CCLOG("Game Ended !!");
+}
+
+void GameScene::showNextLevelBtn() {
+
+}
+
+void GameScene::showHint() {
+    auto scale = ScaleTo::create(0.3, .65);
+    hintBtn->runAction(scale);
+    hint_container->setVisible(true);
+}
+
+void GameScene::hideHint() {
+    auto scale = ScaleTo::create(0.3, 0.5);
+    hintBtn->runAction(scale);
+    hint_container->setVisible(false);
+}
+
+void GameScene::prepareHint(){
+    hintShowCompleted = false;
+    hintBtn = Sprite::create("images/ui/help_btn-hd.png");
+    hintBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    hintBtn->setScale(0.5);
+    hintBtn->setPosition(Vec2(origin.x +  hintBtn->getContentSize().width + 7,
+                                 origin.y + visibleSize.height - hintBtn->getContentSize().height/2));
+    addChild(hintBtn,1);
+    
+    
+    hint_container = ui::Layout::create();
+    hint_container->setLayoutType(ui::LayoutType::RELATIVE);
+    hint_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    hint_container->setPosition(Vec2(visibleSize.width /2, visibleSize.height /2));
+    hint_container->setContentSize(Size(_item_name.length() * (35) , 63 ));
+    hint_container->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+    hint_container->setBackGroundColor(Color3B::ORANGE);
+    auto text = ui::Text::create();
+    text->setString(_item_name);
+    text->setFontSize(60);
+    auto rlp = ui::RelativeLayoutParameter::create();
+    rlp->setAlign(ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
+    text->setLayoutParameter(rlp);
+    hint_container->addChild(text);
+    addChild(hint_container, 9);
+    
+    auto delay = DelayTime::create(2);
+    auto move = MoveTo::create(0.7 , hintBtn->getPosition());
+    auto scale = ScaleTo::create(0.7, 0.2);
+    auto actionS = Spawn::create(move, scale, NULL);
+    auto actionSR = Spawn::create(MoveTo::create(0.0001 , Vec2(visibleSize.width /2, visibleSize.height /2)), ScaleTo::create(0.0001, 1), NULL);
+    auto action = Sequence::create(delay, actionS, Hide::create(),actionSR,
+            CallFunc::create( CC_CALLBACK_0(GameScene::onHintShowCompleted,this)),
+            NULL);
+    hint_container->runAction(action);
+
+}
+
+void GameScene::onHintShowCompleted() {
+    auto scaleB = ScaleTo::create(0.3, .65);
+    auto scale = ScaleTo::create(0.2, .5);
+    hintBtn->runAction(Sequence::create(scaleB,scale, NULL));
+    hintShowCompleted = true;
 }

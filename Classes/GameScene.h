@@ -32,12 +32,25 @@ public:
     
     
 private:
+    cocos2d::Size visibleSize;
+    cocos2d::Vec2 origin;
+    
     std::string _item_name;
     Board* moving_board;
     cocos2d::Vector<Board*> boards;
     cocos2d::ui::Layout *targets_container;
+    cocos2d::ui::Layout *hint_container;
+    cocos2d::Sprite* hintBtn;
+    bool hintShowCompleted;
     
     void menuCloseCallback(Ref* pSender);
+    void checkForGameSolved();
+    void setGameSolved();
+    void showNextLevelBtn();
+    void prepareHint();
+    void showHint();
+    void hideHint();
+    void onHintShowCompleted();
 };
 
 #endif	/* GAMESCENE_H */
