@@ -223,15 +223,21 @@ void GameScene::initTargets() {
     targets_container->setLayoutType(ui::Layout::Type::HORIZONTAL);
     targets_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 60));
-    targets_container->setContentSize(Size(_item_name.length() * (109 + 4) , 126 ));
+    targets_container->setContentSize(Size((_item_name.length() /2) * (109 + 4) , 126 ));
 
     auto lp = ui::LinearLayoutParameter::create();
     lp->setMargin(ui::Margin(5,0,5,0));
-    for(char& c : _item_name) {
-        std::string cd = &c;
+    
+    std::vector<std::string> ar;
+    for (unsigned int i = 0; i < _item_name.size(); i= i + 2) {
+        std::ostringstream doss;
+        doss <<  _item_name.at(i) <<  _item_name.at(i + 1);
+        ar.push_back(doss.str());
+    }
+    for (int i = ar.size(); i --> 0;) {
         auto targetImage = ui::ImageView::create("images/ui/board-target-hd.png");
         targetImage->setLayoutParameter(lp);
-        targetImage->setName(cd);
+        targetImage->setName(ar.at(i));
         targets_container->addChild(targetImage);
     }
     targets_container->setScale(0.5);
@@ -239,27 +245,29 @@ void GameScene::initTargets() {
 }
 
 void GameScene::initBoards() {
-    std::ostringstream oss;
-    oss << "layouts/layout_" << _item_name.size() << ".xml";
-    std::string file_path = FileUtils::getInstance()->fullPathForFilename(oss.str());
+    std::ostringstream ossL;
+    ossL << "layouts/layout_" << (_item_name.size() / 2) << ".xml";
+    std::string file_path = FileUtils::getInstance()->fullPathForFilename(ossL.str());
     pugi::xml_document _levelData;
     _levelData.load_file(file_path.c_str());
     auto layoutsParent = _levelData.child("psd");
-    
-    std::vector<char> shuffled(_item_name.begin(), _item_name.end());
-    std::random_shuffle(shuffled.begin(),shuffled.end());
-    int i = 0;
-    for(char& c : shuffled){
-        auto boardImage = Board::createWithLetter(&c);
+    std::vector<std::string> ar;
+    for (unsigned int i = 0; i < _item_name.size(); i= i + 2) {
+        std::ostringstream doss;
+        doss <<  _item_name.at(i) <<  _item_name.at(i + 1);
+        ar.push_back(doss.str());
+    }
+    std::random_shuffle(ar.begin(),ar.end());
+    for (unsigned int i = 0; i < ar.size(); i++) {
+        auto boardImage = Board::createWithLetter(ar.at(i));
         std::ostringstream oss;
-        oss << "board-" << (i+1);
+        oss << "board-" << (i) + 1;
         auto coord = layoutsParent.find_child_by_attribute("name",oss.str().c_str());
         int x = (int) ( coord.attribute("x").as_float() * visibleSize.width);
         int y = (int) ((1- coord.attribute("y").as_float() )* visibleSize.height);
         boardImage->setOriginalPosition(Vec2( x, y));
         addChild(boardImage);
         boards.pushBack(boardImage);
-        i++;
     }
 }
 

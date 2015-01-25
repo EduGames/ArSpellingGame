@@ -16,13 +16,13 @@ std::string wordsXMLHelper::getNextWord(std::string currentWord) {
     _levelData.load_file(file_path.c_str());
     auto words = _levelData.child("words").children();
     for (pugi::xml_node word: words){
-        auto wordString = word.text().as_string();
+        auto wordString = word.attribute("name").as_string();
         if ( wordString == currentWord ) {
-            if(wordString != _levelData.child("words").last_child().text().as_string())
-                return word.next_sibling().text().as_string();
+            if(wordString != _levelData.child("words").last_child().attribute("name").as_string())
+                return word.next_sibling().attribute("name").as_string();
         };
     }
-    return _levelData.child("words").first_child().text().as_string();
+    return _levelData.child("words").first_child().attribute("name").as_string();
 }
 
 std::string wordsXMLHelper::getArabicWord(std::string currentWord) {
