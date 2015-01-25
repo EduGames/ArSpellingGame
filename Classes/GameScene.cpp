@@ -48,36 +48,9 @@ bool GameScene::initWithItem(std::string item_name) {
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
     
-    nxtLevelBtn = MenuItemImage::create(
-                                           "images/ui/next_btn-hd.png",
-                                           "images/ui/next_btn-hd.png",
-                                           CC_CALLBACK_0(GameScene::goToNextLvl, this));
-    
-    nxtLevelBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    nxtLevelBtn->setScale(0.5);
-    nxtLevelBtn->setPosition(Vec2(origin.x + visibleSize.width -  nxtLevelBtn->getContentSize().width/2 ,
-                                 origin.y + visibleSize.height /2));
-    //nxtLevelBtn->setOpacity(0);
-    
-    auto closeItem = MenuItemImage::create(
-                                           "images/ui/back_btn-hd.png",
-                                           "images/ui/back_btn-hd.png",
-                                           CC_CALLBACK_0(GameScene::menuCloseCallback, this));
-    closeItem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    closeItem->setScale(0.5);
-    closeItem->setPosition(Vec2(origin.x +  closeItem->getContentSize().width/2 ,
-                                 origin.y + visibleSize.height - closeItem->getContentSize().height/2));
+    initMenu();
+    initHint();
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, nxtLevelBtn, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-    
-    prepareHint();
-    
-    
-    
-    
     auto bg = Sprite::create("images/ui/background.jpg");
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     addChild(bg,-1);
@@ -87,44 +60,9 @@ bool GameScene::initWithItem(std::string item_name) {
     item->setPosition(Vec2(visibleSize.width /2  + origin.x - item->getContentSize().width / 2, visibleSize.height /2 + origin.y - item->getContentSize().height / 2));
     addChild(item);
     
-    
-    targets_container = ui::Layout::create();
-    targets_container->setLayoutType(ui::Layout::Type::HORIZONTAL);
-    targets_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 75));
-    targets_container->setContentSize(Size(item_name.length() * (52 + 10) , 63 ));
-
-    auto lp = ui::LinearLayoutParameter::create();
-    lp->setMargin(ui::Margin(5,0,5,0));
-    for(char& c : item_name) {
-        std::string cd = &c;
-        auto targetImage = ui::ImageView::create("images/ui/board-target.png");
-        targetImage->setLayoutParameter(lp);
-        targetImage->setName(cd);
-        targets_container->addChild(targetImage);
-    }
-    targets_container->setScale(0.5);
-    addChild(targets_container);
-
-    std::vector<char> shuffled(item_name.begin(), item_name.end());
-    std::random_shuffle(shuffled.begin(),shuffled.end());
-    int i = 0;
-    for(char& c : shuffled){
-        auto boardImage = Board::createWithLetter(c);
-        boardImage->setOriginalPosition(Vec2( 70, 50 + i * 50));
-        addChild(boardImage);
-        boards.pushBack(boardImage);
-        i++;
-    }
-    
-    
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-    listener->onTouchCancelled = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-
+    initTargets();
+    initBoards();
+    initTouchEvents();
 
     return true;
 }
@@ -211,7 +149,34 @@ void GameScene::hideHint() {
     hint_container->setVisible(false);
 }
 
-void GameScene::prepareHint(){
+void GameScene::initMenu() {
+    nxtLevelBtn = MenuItemImage::create(
+                                           "images/ui/next_btn-hd.png",
+                                           "images/ui/next_btn-hd.png",
+                                           CC_CALLBACK_0(GameScene::goToNextLvl, this));
+    
+    nxtLevelBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    nxtLevelBtn->setScale(0.5);
+    nxtLevelBtn->setPosition(Vec2(origin.x + visibleSize.width -  nxtLevelBtn->getContentSize().width/2 ,
+                                 origin.y + visibleSize.height /2));
+    nxtLevelBtn->setOpacity(0);
+    
+    auto closeItem = MenuItemImage::create(
+                                           "images/ui/back_btn-hd.png",
+                                           "images/ui/back_btn-hd.png",
+                                           CC_CALLBACK_0(GameScene::menuCloseCallback, this));
+    closeItem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    closeItem->setScale(0.5);
+    closeItem->setPosition(Vec2(origin.x +  closeItem->getContentSize().width/2 ,
+                                 origin.y + visibleSize.height - closeItem->getContentSize().height/2));
+
+    // create menu, it's an autorelease object
+    auto menu = Menu::create(closeItem, nxtLevelBtn, NULL);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
+}
+
+void GameScene::initHint(){
     hintShowCompleted = false;
     hintBtn = Sprite::create("images/ui/help_btn-hd.png");
     hintBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
@@ -247,6 +212,48 @@ void GameScene::prepareHint(){
             NULL);
     hint_container->runAction(action);
 
+}
+
+void GameScene::initTargets() {
+    targets_container = ui::Layout::create();
+    targets_container->setLayoutType(ui::Layout::Type::HORIZONTAL);
+    targets_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 75));
+    targets_container->setContentSize(Size(_item_name.length() * (52 + 10) , 63 ));
+
+    auto lp = ui::LinearLayoutParameter::create();
+    lp->setMargin(ui::Margin(5,0,5,0));
+    for(char& c : _item_name) {
+        std::string cd = &c;
+        auto targetImage = ui::ImageView::create("images/ui/board-target.png");
+        targetImage->setLayoutParameter(lp);
+        targetImage->setName(cd);
+        targets_container->addChild(targetImage);
+    }
+    targets_container->setScale(0.5);
+    addChild(targets_container);
+}
+
+void GameScene::initBoards() {
+    std::vector<char> shuffled(_item_name.begin(), _item_name.end());
+    std::random_shuffle(shuffled.begin(),shuffled.end());
+    int i = 0;
+    for(char& c : shuffled){
+        auto boardImage = Board::createWithLetter(c);
+        boardImage->setOriginalPosition(Vec2( 70, 50 + i * 50));
+        addChild(boardImage);
+        boards.pushBack(boardImage);
+        i++;
+    }
+}
+
+void GameScene::initTouchEvents() {
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+    listener->onTouchCancelled = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
 void GameScene::onHintShowCompleted() {

@@ -52,7 +52,11 @@ private:
     void checkForGameSolved();
     void setGameSolved();
     void showNextLevelBtn();
-    void prepareHint();
+    void initMenu();
+    void initHint();
+    void initTargets();
+    void initBoards();
+    void initTouchEvents();
     void showHint();
     void hideHint();
     void onHintShowCompleted();

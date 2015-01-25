@@ -14,8 +14,8 @@ bool PageViewWIndicator::init() {
         pageView = ui::PageView::create();
         pageView->setCustomScrollThreshold(0.4);
         _indicator = PageIndicator::create();
-        pageView->setContentSize(Size(570,320));
-        _indicator->setContentSize(Size(120,120));
+        pageView->setContentSize(Size(570,280));
+        _indicator->setContentSize(Size(120,36));
         addChild(pageView);
         addChild(_indicator);
         pageView->addEventListener(CC_CALLBACK_0(PageViewWIndicator::updatePageIndicator, this));

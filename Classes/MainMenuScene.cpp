@@ -58,6 +58,7 @@ bool MainMenu::init()
     
     PageViewWIndicator* pageView = PageViewWIndicator::create();
     pageView->setContentSize(visibleSize);
+    pageView->setPositionY(-40);
     
     std::vector<std::string> list;
     std::string file_path = FileUtils::getInstance()->fullPathForFilename("words.xml");
