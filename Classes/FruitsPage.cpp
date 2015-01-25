@@ -6,7 +6,7 @@
  */
 
 #include "FruitsPage.h"
-#include "Item.h"
+#include "SmallItem.h"
 #include "GameScene.h"
 USING_NS_CC;
 
@@ -36,7 +36,7 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
     unsigned int halfSize = 3;//images.size() / 2;
     
     for (unsigned int i = 0; i < images.size(); i++) {
-        auto imageContainer = Item::create();
+        auto imageContainer = SmallItem::create();
         imageContainer->setImage(images.at(i));
         imageContainer->setEnabled(true);
         imageContainer->setTouchEnabled(true);
@@ -53,7 +53,7 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
 }
 
 void FruitsPage::onClick(Ref* pSender){
-    Item* slider = dynamic_cast<Item*>(pSender);
+    SmallItem* slider = dynamic_cast<SmallItem*>(pSender);
     auto myScene = GameScene::createScene(slider->name);
     Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
 }

@@ -10,7 +10,7 @@ USING_NS_CC;
 
 Board* Board::createWithLetter(const char name) {
     Board *widget = new (std::nothrow) Board;
-    if (widget && widget->init("images/ui/board.png", TextureResType::LOCAL) && widget->initWithLetter(name)) {
+    if (widget && widget->init("images/ui/board-hd.png", TextureResType::LOCAL) && widget->initWithLetter(name)) {
         widget->autorelease();
         return widget;
     }
@@ -25,8 +25,8 @@ bool Board::initWithLetter(const char c) {
     auto text = ui::Text::create();
     text->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     text->setString(&c);
-    text->setPosition(Vec2(25,30));
-    text->setFontSize(35);
+    text->setPosition(Vec2(50,60));
+    text->setFontSize(70);
     addChild(text);
     return true;
 }

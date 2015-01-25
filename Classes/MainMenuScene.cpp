@@ -52,7 +52,8 @@ bool MainMenu::init()
     this->addChild(menu, 1);
 
     // add "HelloWorld" splash screen"
-    auto bg = Sprite::create("images/ui/background2.jpg");
+    auto bg = Sprite::create("images/ui/background2-hd.jpg");
+    bg->setScale(0.5);
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     addChild(bg,-1);
     

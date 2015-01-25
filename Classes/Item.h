@@ -15,8 +15,9 @@ public:
     bool init();
     void setImage(std::string image);
     std::string name;
-private:
-
+protected:
+    std::string YELLOW_SQUARE_IMAGE = "images/ui/yellow-square-big-hd.png";
+    std::string IMAGE_SUFFIX = "-hd.png";
 };
 
 #endif	/* ITEM_H */

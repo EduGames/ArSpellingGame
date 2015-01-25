@@ -1,0 +1,10 @@
+<psd>
+	<layer name="board-1" x=".1" y=".27" transformpoint="center">board-1.png</layer>
+	<layer name="board-2" x=".25" y=".27" transformpoint="center">board-2.png</layer>
+	<layer name="board-3" x=".9" y=".25" transformpoint="center">board-3.png</layer>
+	<layer name="board-4" x=".69" y=".25" transformpoint="center">board-4.png</layer>
+	<layer name="board-5" x=".1" y=".55" transformpoint="center">board-5.png</layer>
+	<layer name="board-6" x=".72" y=".55" transformpoint="center">board-6.png</layer>
+	<layer name="board-7" x=".88" y=".55" transformpoint="center">board-7.png</layer>
+	<layer name="board-8" x=".3" y=".55" transformpoint="center">board-8.png</layer>
+</psd>

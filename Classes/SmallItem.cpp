@@ -1,19 +1,19 @@
 /* 
- * File:   MenuItem.cpp
+ * File:   smallItem.cpp
  * Author: mohheader
  * 
- * Created on January 15, 2015, 6:27 PM
+ * Created on January 25, 2015, 10:58 AM
  */
 
-#include "Item.h"
+#include "SmallItem.h"
 USING_NS_CC;
-bool Item::init() {
+bool SmallItem::init() {
     if(ui::Layout::init()){
         setContentSize(Size(120,120));
         setLayoutType(ui::Layout::Type::ABSOLUTE);
         auto i = ui::ImageView::create(YELLOW_SQUARE_IMAGE);
         i->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-        i->setScale(0.40);
+        i->setScale(0.50);
         i->setPosition(Vec2(getContentSize().width/2,getContentSize().height/2));
         addChild(i);
         return true;
@@ -21,10 +21,10 @@ bool Item::init() {
     return false;
 }
 
-void Item::setImage(std::string image) {
+void SmallItem::setImage(std::string image) {
     auto i = ui::ImageView::create("images/fruits/"+image+IMAGE_SUFFIX);
     i->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    i->setScale(0.40);
+    i->setScale(0.50);
     i->setPosition(Vec2(getContentSize().width/2,getContentSize().height/2));
     addChild(i);
     name = image;

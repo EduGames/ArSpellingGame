@@ -9,6 +9,7 @@
 #include "Item.h"
 #include "MainMenuScene.h"
 #include "helpers/wordsXMLHelper.h"
+#include "libs/pugixml/pugixml.hpp"
 
 USING_NS_CC;
 Scene* GameScene::createScene(std::string item_name)
@@ -51,13 +52,14 @@ bool GameScene::initWithItem(std::string item_name) {
     initMenu();
     initHint();
 
-    auto bg = Sprite::create("images/ui/background.jpg");
+    auto bg = Sprite::create("images/ui/background-hd.jpg");
+    bg->setScale(0.5);
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     addChild(bg,-1);
     
     auto item = Item::create();
     item->setImage(item_name);
-    item->setPosition(Vec2(visibleSize.width /2  + origin.x - item->getContentSize().width / 2, visibleSize.height /2 + origin.y - item->getContentSize().height / 2));
+    item->setPosition(Vec2(visibleSize.width /2  + origin.x - item->getContentSize().width / 2, visibleSize.height /2 + origin.y - item->getContentSize().height / 4));
     addChild(item);
     
     initTargets();
@@ -218,14 +220,14 @@ void GameScene::initTargets() {
     targets_container = ui::Layout::create();
     targets_container->setLayoutType(ui::Layout::Type::HORIZONTAL);
     targets_container->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 75));
-    targets_container->setContentSize(Size(_item_name.length() * (52 + 10) , 63 ));
+    targets_container->setPosition(Vec2(visibleSize.width /2  + origin.x, 60));
+    targets_container->setContentSize(Size(_item_name.length() * (109 + 4) , 126 ));
 
     auto lp = ui::LinearLayoutParameter::create();
     lp->setMargin(ui::Margin(5,0,5,0));
     for(char& c : _item_name) {
         std::string cd = &c;
-        auto targetImage = ui::ImageView::create("images/ui/board-target.png");
+        auto targetImage = ui::ImageView::create("images/ui/board-target-hd.png");
         targetImage->setLayoutParameter(lp);
         targetImage->setName(cd);
         targets_container->addChild(targetImage);
@@ -235,12 +237,24 @@ void GameScene::initTargets() {
 }
 
 void GameScene::initBoards() {
+    std::ostringstream oss;
+    oss << "layouts/layout_" << _item_name.size() << ".xml";
+    std::string file_path = FileUtils::getInstance()->fullPathForFilename(oss.str());
+    pugi::xml_document _levelData;
+    _levelData.load_file(file_path.c_str());
+    auto layoutsParent = _levelData.child("psd");
+    
     std::vector<char> shuffled(_item_name.begin(), _item_name.end());
     std::random_shuffle(shuffled.begin(),shuffled.end());
     int i = 0;
     for(char& c : shuffled){
         auto boardImage = Board::createWithLetter(c);
-        boardImage->setOriginalPosition(Vec2( 70, 50 + i * 50));
+        std::ostringstream oss;
+        oss << "board-" << (i+1);
+        auto coord = layoutsParent.find_child_by_attribute("name",oss.str().c_str());
+        int x = (int) ( coord.attribute("x").as_float() * visibleSize.width);
+        int y = (int) ((1- coord.attribute("y").as_float() )* visibleSize.height);
+        boardImage->setOriginalPosition(Vec2( x, y));
         addChild(boardImage);
         boards.pushBack(boardImage);
         i++;
