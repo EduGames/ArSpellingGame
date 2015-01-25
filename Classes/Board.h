@@ -14,8 +14,8 @@ public:
     static Board* createWithLetter(const char name);
     bool initWithLetter(const char name);
     char letter;
-    void setOriginalPosition(cocos2d::Vec2 p){_originalPosition = p;};
-    cocos2d::Vec2 getOriginalPosition(){ return _originalPosition;};
+    void setOriginalPosition(const cocos2d::Vec2 & p);
+    cocos2d::Vec2 getOriginalPosition();
     
     void setIsSolved(bool s){isSolved = s;};
     bool IsSolved(){ return isSolved;};

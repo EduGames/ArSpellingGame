@@ -9,9 +9,13 @@
 USING_NS_CC;
 
 Board* Board::createWithLetter(const char name) {
-    auto b = static_cast<Board*>(ui::ImageView::create("images/ui/board.png"));
-    b->initWithLetter(name);
-    return b;
+    Board *widget = new (std::nothrow) Board;
+    if (widget && widget->init("images/ui/board.png", TextureResType::LOCAL) && widget->initWithLetter(name)) {
+        widget->autorelease();
+        return widget;
+    }
+    CC_SAFE_DELETE(widget);
+    return nullptr;
 }
 
 bool Board::initWithLetter(const char c) {
@@ -24,4 +28,14 @@ bool Board::initWithLetter(const char c) {
     text->setPosition(Vec2(25,30));
     text->setFontSize(35);
     addChild(text);
+    return true;
+}
+
+void Board::setOriginalPosition(const Vec2 & p) {
+    setPosition(p);
+    _originalPosition = p;
+}
+
+cocos2d::Vec2 Board::getOriginalPosition() {
+    return _originalPosition;
 }

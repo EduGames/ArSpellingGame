@@ -111,7 +111,6 @@ bool GameScene::initWithItem(std::string item_name) {
     int i = 0;
     for(char& c : shuffled){
         auto boardImage = Board::createWithLetter(c);
-        boardImage->setPosition(Vec2( 70, 50 + i * 50));
         boardImage->setOriginalPosition(Vec2( 70, 50 + i * 50));
         addChild(boardImage);
         boards.pushBack(boardImage);
