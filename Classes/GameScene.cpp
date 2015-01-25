@@ -43,7 +43,8 @@ bool GameScene::initWithItem(std::string item_name) {
     {
         return false;
     }
-    _item_name = item_name;
+    _item_name_english = item_name;
+    _item_name = wordsXMLHelper::getArabicWord(item_name);
     moving_board = nullptr;
     
     visibleSize = Director::getInstance()->getVisibleSize();
@@ -198,6 +199,7 @@ void GameScene::initHint(){
     auto text = ui::Text::create();
     text->setString(_item_name);
     text->setFontSize(60);
+    text->setFontName("fonts/font.ttf");
     auto rlp = ui::RelativeLayoutParameter::create();
     rlp->setAlign(ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
     text->setLayoutParameter(rlp);
@@ -248,7 +250,7 @@ void GameScene::initBoards() {
     std::random_shuffle(shuffled.begin(),shuffled.end());
     int i = 0;
     for(char& c : shuffled){
-        auto boardImage = Board::createWithLetter(c);
+        auto boardImage = Board::createWithLetter(&c);
         std::ostringstream oss;
         oss << "board-" << (i+1);
         auto coord = layoutsParent.find_child_by_attribute("name",oss.str().c_str());
@@ -278,6 +280,6 @@ void GameScene::onHintShowCompleted() {
 }
 
 void GameScene::goToNextLvl() {
-    auto myScene = GameScene::createScene(wordsXMLHelper::getNextWord(_item_name));
+    auto myScene = GameScene::createScene(wordsXMLHelper::getNextWord(_item_name_english));
     Director::getInstance()->replaceScene(TransitionFade::create(0.5, myScene, Color3B(0,255,255)));
 }

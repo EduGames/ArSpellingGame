@@ -11,6 +11,7 @@
 class wordsXMLHelper {
 public:
     static std::string getNextWord(std::string currentWord);
+    static std::string getArabicWord(std::string currentWord);
 private:
 
 };

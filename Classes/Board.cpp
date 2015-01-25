@@ -8,7 +8,7 @@
 #include "Board.h"
 USING_NS_CC;
 
-Board* Board::createWithLetter(const char name) {
+Board* Board::createWithLetter(const std::string name) {
     Board *widget = new (std::nothrow) Board;
     if (widget && widget->init("images/ui/board-hd.png", TextureResType::LOCAL) && widget->initWithLetter(name)) {
         widget->autorelease();
@@ -18,13 +18,14 @@ Board* Board::createWithLetter(const char name) {
     return nullptr;
 }
 
-bool Board::initWithLetter(const char c) {
-    setName(&c);
+bool Board::initWithLetter(const std::string c) {
+    setName(c);
     setScale(0.5);
     setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     auto text = ui::Text::create();
+    text->setFontName("fonts/font.ttf");
     text->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    text->setString(&c);
+    text->setString(c);
     text->setPosition(Vec2(50,60));
     text->setFontSize(70);
     addChild(text);

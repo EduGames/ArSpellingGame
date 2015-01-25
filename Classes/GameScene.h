@@ -36,6 +36,7 @@ private:
     cocos2d::Vec2 origin;
     
     std::string _item_name;
+    std::string _item_name_english;
     
     Board* moving_board;
     cocos2d::Vector<Board*> boards;

@@ -67,7 +67,7 @@ bool MainMenu::init()
     _levelData.load_file(file_path.c_str());
     auto words = _levelData.child("words").children();
     for (pugi::xml_node word: words){
-        auto wordString = word.text().as_string();
+        auto wordString = word.attribute("name").as_string();
         list.push_back(wordString);
         if(list.size() >= 6){
             pageView->addPage(FruitsPage::createWithList(visibleSize, list));

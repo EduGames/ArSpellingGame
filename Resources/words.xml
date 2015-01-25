@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <words>
-	<word>banana</word>
-	<word>broccoli</word>
-	<word>carrot</word>
-	<word>cherry</word>
-	<word>corn</word>
-	<word>cucumber</word>
-	<word>garlic</word>
-	<word>grape</word>
-	<word>kiwi</word>
-	<word>lemon</word>
-	<word>lettuce</word>
-	<word>mushroom</word>
-	<word>onion</word>
-	<word>pear</word>
-	<word>plum</word>
-	<word>potato</word>
-	<word>pumpkin</word>
-	<word>radish</word>
-	<word>tomato</word>
-	<word>zucchini</word>
+	<word name="banana">موزة</word>
+	<word name="carrot">جزرة</word>
+	<word name="cucumber">خيار</word>
+	<word name="kiwi">كيوي</word>
+	<word name="lemon">ليمون</word>
+	<word name="mushroom">مشروم</word>
+	<word name="potato">بطاطس</word>
+	<word name="tomato">طماطم</word>
+	<word name="zucchini">كوسة</word>
 </words>
