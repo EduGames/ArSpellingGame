@@ -78,7 +78,7 @@ bool MainMenu::init()
         pageView->addPage(FruitsPage::createWithList(visibleSize, list));
         list.clear();
     }
-    
+    pageView->setCurrentPage(pageView->getPagesCount() - 1);
     this->addChild(pageView);
     return true;
 }

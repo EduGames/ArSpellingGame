@@ -96,7 +96,7 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
     for(auto target : targets_container->getChildren()){
         auto g = targets_container->convertToWorldSpace(target->getPosition());
         if(moving_board->getBoundingBox().containsPoint(g)
-                && ( moving_board->getName().at(0) == target->getName().at(0))
+                && ( moving_board->getName() == target->getName())
         ){
             moving_board->setPosition(g);
             auto rL = RotateTo::create(0.1,30);
@@ -160,8 +160,9 @@ void GameScene::initMenu() {
     
     nxtLevelBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     nxtLevelBtn->setScale(0.5);
-    nxtLevelBtn->setPosition(Vec2(origin.x + visibleSize.width -  nxtLevelBtn->getContentSize().width/2 ,
+    nxtLevelBtn->setPosition(Vec2(origin.x + nxtLevelBtn->getContentSize().width/2 ,
                                  origin.y + visibleSize.height /2));
+    nxtLevelBtn->setScaleX(-0.5);
     nxtLevelBtn->setOpacity(0);
     
     auto closeItem = MenuItemImage::create(
@@ -170,7 +171,8 @@ void GameScene::initMenu() {
                                            CC_CALLBACK_0(GameScene::menuCloseCallback, this));
     closeItem->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     closeItem->setScale(0.5);
-    closeItem->setPosition(Vec2(origin.x +  closeItem->getContentSize().width/2 ,
+    closeItem->setScaleX(-0.5);
+    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                  origin.y + visibleSize.height - closeItem->getContentSize().height/2));
 
     // create menu, it's an autorelease object
@@ -184,7 +186,7 @@ void GameScene::initHint(){
     hintBtn = Sprite::create("images/ui/help_btn-hd.png");
     hintBtn->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     hintBtn->setScale(0.5);
-    hintBtn->setPosition(Vec2(origin.x +  hintBtn->getContentSize().width + 7,
+    hintBtn->setPosition(Vec2(origin.x +  hintBtn->getContentSize().width / 2,
                                  origin.y + visibleSize.height - hintBtn->getContentSize().height/2));
     addChild(hintBtn,1);
     

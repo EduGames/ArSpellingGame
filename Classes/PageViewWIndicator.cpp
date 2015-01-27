@@ -25,7 +25,7 @@ bool PageViewWIndicator::init() {
 }
 
 void PageViewWIndicator::addPage(Layout* page) {
-    pageView->addPage(page);
+    pageView->insertPage(page, 0);
     _indicator->addPage();
     updatePageIndicator();
 }
@@ -34,4 +34,9 @@ void PageViewWIndicator::updatePageIndicator(){
 }
 void PageViewWIndicator::setCurrentPage(int index){
     _indicator->setCurrentPage(index);
+    pageView->scrollToPage(index);
+}
+
+int PageViewWIndicator::getPagesCount(){
+    return pageView->getChildrenCount();
 }

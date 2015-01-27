@@ -20,6 +20,7 @@ public:
     void addPage(Layout* page);
     void updatePageIndicator();
     void setCurrentPage(int index);
+    int getPagesCount();
 private:
     
 };

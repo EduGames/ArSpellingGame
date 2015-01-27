@@ -15,6 +15,7 @@ FruitsPage* FruitsPage::createWithList(Size size, std::vector<std ::string> imag
     fp->setLayoutType(ui::Layout::Type::VERTICAL);
     fp->setContentSize(size);
     fp->addItems(images);
+    
     return fp;
 }
 
@@ -27,16 +28,21 @@ void FruitsPage::addItems(std::vector<std ::string> images) {
     layout->setLayoutType(ui::Layout::Type::HORIZONTAL);
     layout->setContentSize(Size(360, getContentSize().height / 2.5));
     layout->setLayoutParameter(lp);
-
+    layout->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    layout->setScaleX(-1);
+    
     auto layout2 = ui::Layout::create();
     layout2->setLayoutType(ui::Layout::Type::HORIZONTAL);
     layout2->setContentSize(Size(360, getContentSize().height / 2.5));
     layout2->setLayoutParameter(lp);
-    
+    layout2->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    layout2->setScaleX(-1);
     unsigned int halfSize = 3;//images.size() / 2;
     
     for (unsigned int i = 0; i < images.size(); i++) {
         auto imageContainer = SmallItem::create();
+        imageContainer->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+        imageContainer->setScaleX(-1);
         imageContainer->setImage(images.at(i));
         imageContainer->setEnabled(true);
         imageContainer->setTouchEnabled(true);
