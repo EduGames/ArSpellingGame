@@ -10,6 +10,7 @@
 #include "MainMenuScene.h"
 #include "helpers/wordsXMLHelper.h"
 #include "libs/pugixml/pugixml.hpp"
+#include "helpers/lettersSoundUtils.h"
 
 USING_NS_CC;
 Scene* GameScene::createScene(std::string item_name)
@@ -98,6 +99,7 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
         if(moving_board->getBoundingBox().containsPoint(g)
                 && ( moving_board->getName() == target->getName())
         ){
+            lettersSoundUtils::playSound(moving_board->getName());
             moving_board->setPosition(g);
             auto rL = RotateTo::create(0.1,30);
             auto rR = RotateTo::create(0.1,-30);

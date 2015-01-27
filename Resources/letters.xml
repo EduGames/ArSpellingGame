@@ -1,0 +1,34 @@
+<letters>
+    <letter letter="أ">1</letter>
+    <letter letter="ا">1</letter>
+    <letter letter="إ">1</letter>
+    <letter letter="آ">1</letter>
+    <letter letter="ب">2</letter>
+    <letter letter="ت">3</letter>
+    <letter letter="ة">3</letter>
+    <letter letter="ث">4</letter>
+    <letter letter="ج">5</letter>
+    <letter letter="ح">6</letter>
+    <letter letter="خ">7</letter>
+    <letter letter="د">8</letter>
+    <letter letter="ذ">9</letter>
+    <letter letter="ر">10</letter>
+    <letter letter="ز">11</letter>
+    <letter letter="س">12</letter>
+    <letter letter="ش">13</letter>
+    <letter letter="ص">14</letter>
+    <letter letter="ض">15</letter>
+    <letter letter="ط">16</letter>
+    <letter letter="ظ">17</letter>
+    <letter letter="ع">18</letter>
+    <letter letter="غ">19</letter>
+    <letter letter="ف">20</letter>
+    <letter letter="ق">21</letter>
+    <letter letter="ك">22</letter>
+    <letter letter="ل">23</letter>
+    <letter letter="م">24</letter>
+    <letter letter="ن">25</letter>
+    <letter letter="ه">26</letter>
+    <letter letter="و">27</letter>
+    <letter letter="ي">28</letter>
+</letters>
