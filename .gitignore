@@ -8,3 +8,8 @@ compile_commands.json
 lib/
 Makefile
 nbproject/
+/proj.android/obj/local/
+/proj.android/local.properties
+/proj.android/libs/
+/proj.android/gen/
+/proj.android/assets/
