@@ -5,7 +5,9 @@
  * Created on January 27, 2015, 10:31 PM
  */
 
-#include "lettersSoundUtils.h"
+#include <unistd.h>
+
+#include "soundUtils.h"
 #include "arLettersUtils.h"
 
 //TODO: FIX !!!
@@ -13,16 +15,7 @@
 
 USING_NS_CC;
 
-lettersSoundUtils::lettersSoundUtils() {
-}
-
-lettersSoundUtils::lettersSoundUtils(const lettersSoundUtils& orig) {
-}
-
-lettersSoundUtils::~lettersSoundUtils() {
-}
-
-void lettersSoundUtils::playSound(std::string letter) {
+void soundUtils::playSound(std::string letter) {
     int number = arLettersUtils::getLetterNumber(letter);
     char numstr[21]; // enough to hold all numbers up to 64-bits
     std::sprintf(numstr, "%i", number);
@@ -31,4 +24,9 @@ void lettersSoundUtils::playSound(std::string letter) {
     result__ = std::string("sounds/letters/02/") + result__;
     const char * audio_file = result__.c_str();
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(audio_file);
+}
+void soundUtils::playword(std::string word) {
+    std::string result__ = std::string("sounds/words/") + word + std::string(".mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(result__.c_str());
+    //playDelayed(result__, 1.0f);
 }

@@ -9,13 +9,11 @@
 #define	LETTERSSOUNDUTILS_H
 #include "cocos2d.h"
 
-class lettersSoundUtils : public cocos2d::Node {
+class soundUtils : public cocos2d::Node {
 public:
-    lettersSoundUtils();
-    lettersSoundUtils(const lettersSoundUtils& orig);
-    virtual ~lettersSoundUtils();
-    
+    CREATE_FUNC(soundUtils);
     static void playSound(std::string letter);
+    static void playword(std::string word);
 private:
 
 };

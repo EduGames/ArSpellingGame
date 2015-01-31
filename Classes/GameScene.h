@@ -62,6 +62,8 @@ private:
     void hideHint();
     void onHintShowCompleted();
     void goToNextLvl();
+    
+    void playWordsound();
 };
 
 #endif	/* GAMESCENE_H */

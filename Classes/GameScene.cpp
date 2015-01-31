@@ -10,7 +10,7 @@
 #include "MainMenuScene.h"
 #include "helpers/wordsXMLHelper.h"
 #include "libs/pugixml/pugixml.hpp"
-#include "helpers/lettersSoundUtils.h"
+#include "helpers/soundUtils.h"
 
 USING_NS_CC;
 Scene* GameScene::createScene(std::string item_name)
@@ -70,6 +70,9 @@ bool GameScene::initWithItem(std::string item_name) {
 
     return true;
 }
+void GameScene::playWordsound(){
+    soundUtils::playword(_item_name_english);
+}
 
 bool GameScene::onTouchBegan(Touch* touch, Event* unused_event) {
     if(hintBtn->getBoundingBox().containsPoint(touch->getLocation())){
@@ -99,7 +102,7 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
         if(moving_board->getBoundingBox().containsPoint(g)
                 && ( moving_board->getName() == target->getName())
         ){
-            lettersSoundUtils::playSound(moving_board->getName());
+            soundUtils::playSound(moving_board->getName());
             moving_board->setPosition(g);
             auto rL = RotateTo::create(0.1,30);
             auto rR = RotateTo::create(0.1,-30);
@@ -134,8 +137,11 @@ void GameScene::checkForGameSolved() {
 }
 
 void GameScene::setGameSolved() {
-    CCLOG("Game Ended !!");
-    showNextLevelBtn();
+    auto action = Sequence::create(DelayTime::create(1), 
+            CallFunc::create( CC_CALLBACK_0(GameScene::playWordsound,this)),
+            CallFunc::create( CC_CALLBACK_0(GameScene::showNextLevelBtn,this)),
+            NULL);
+    runAction(action);
 }
 
 void GameScene::showNextLevelBtn() {
@@ -208,16 +214,19 @@ void GameScene::initHint(){
     hint_container->addChild(text);
     addChild(hint_container, 9);
     
-    auto delay = DelayTime::create(2);
+    auto delay = DelayTime::create(1);
     auto move = MoveTo::create(0.7 , hintBtn->getPosition());
     auto scale = ScaleTo::create(0.7, 0.2);
     auto actionS = Spawn::create(move, scale, NULL);
     auto actionSR = Spawn::create(MoveTo::create(0.0001 , Vec2(visibleSize.width /2, visibleSize.height /2)), ScaleTo::create(0.0001, 1), NULL);
-    auto action = Sequence::create(delay, actionS, Hide::create(),actionSR,
+    auto action = Sequence::create(delay->clone(), 
+            CallFunc::create( CC_CALLBACK_0(GameScene::playWordsound,this)),
+            delay->clone(),
+            actionS, Hide::create(),actionSR,
             CallFunc::create( CC_CALLBACK_0(GameScene::onHintShowCompleted,this)),
             NULL);
     hint_container->runAction(action);
-
+    
 }
 
 void GameScene::initTargets() {
