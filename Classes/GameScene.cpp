@@ -253,7 +253,10 @@ void GameScene::initBoards() {
     ossL << "layouts/layout_" << (_item_name.size() / 2) << ".xml";
     std::string file_path = FileUtils::getInstance()->fullPathForFilename(ossL.str());
     pugi::xml_document _levelData;
-    _levelData.load_file(file_path.c_str());
+    unsigned char* pBuffer = NULL;
+    ssize_t bufferSize = 0;
+    pBuffer = FileUtils::getInstance()->getFileData(file_path.c_str(), "r", &bufferSize);
+    _levelData.load_buffer(pBuffer,bufferSize);
     auto layoutsParent = _levelData.child("psd");
     std::vector<std::string> ar;
     for (unsigned int i = 0; i < _item_name.size(); i= i + 2) {

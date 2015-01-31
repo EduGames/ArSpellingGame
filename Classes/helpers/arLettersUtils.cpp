@@ -22,6 +22,9 @@ int arLettersUtils::getLetterNumber(std::string letter) {
     std::vector<std::string> list;
     std::string file_path = FileUtils::getInstance()->fullPathForFilename("letters.xml");
     pugi::xml_document _levelData;
-    _levelData.load_file(file_path.c_str());
+    unsigned char* pBuffer = NULL;
+    ssize_t bufferSize = 0;
+    pBuffer = FileUtils::getInstance()->getFileData(file_path.c_str(), "r", &bufferSize);
+    _levelData.load_buffer(pBuffer,bufferSize);
     return _levelData.child("letters").find_child_by_attribute("letter",letter.c_str()).text().as_int();
 }

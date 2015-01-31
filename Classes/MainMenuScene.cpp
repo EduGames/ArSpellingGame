@@ -64,7 +64,12 @@ bool MainMenu::init()
     std::vector<std::string> list;
     std::string file_path = FileUtils::getInstance()->fullPathForFilename("words.xml");
     pugi::xml_document _levelData;
-    _levelData.load_file(file_path.c_str());
+
+    unsigned char* pBuffer = NULL;
+    ssize_t bufferSize = 0;
+    pBuffer = FileUtils::getInstance()->getFileData(file_path.c_str(), "r", &bufferSize);
+    _levelData.load_buffer(pBuffer,bufferSize);
+
     auto words = _levelData.child("words").children();
     for (pugi::xml_node word: words){
         auto wordString = word.attribute("name").as_string();
