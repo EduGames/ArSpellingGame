@@ -1,0 +1,5 @@
+<psd>
+	<layer name="board-1" x=".2" y=".3" transformpoint="center">board-1.png</layer>
+	<layer name="board-2" x=".14" y=".55" transformpoint="center">board-2.png</layer>
+	<layer name="board-3" x=".8" y=".3" transformpoint="center">board-3.png</layer>
+</psd>
