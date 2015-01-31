@@ -200,13 +200,9 @@ void GameScene::initHint(){
     hint_container->setContentSize(Size(_item_name.length() * (35) , 63 ));
     hint_container->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
     hint_container->setBackGroundColor(Color3B::ORANGE);
-    auto text = ui::Text::create();
-    text->setString(_item_name);
-    text->setFontSize(60);
-    text->setFontName("fonts/font.ttf");
-    auto rlp = ui::RelativeLayoutParameter::create();
-    rlp->setAlign(ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
-    text->setLayoutParameter(rlp);
+    auto text = Label::createWithSystemFont(_item_name, "fonts/font.ttf", 60);
+    text->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    text->setPosition(hint_container->getBoundingBox().size.width / 2,hint_container->getBoundingBox().size.height / 2);
     hint_container->addChild(text);
     addChild(hint_container, 9);
     
