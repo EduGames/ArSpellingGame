@@ -140,6 +140,7 @@ void GameScene::setGameSolved() {
 
 void GameScene::showNextLevelBtn() {
     nxtLevelBtn->runAction(FadeIn::create(0.2));
+    nxtLevelBtn->setEnabled(true);
 }
 
 void GameScene::showHint() {
@@ -166,6 +167,7 @@ void GameScene::initMenu() {
                                  origin.y + visibleSize.height /2));
     nxtLevelBtn->setScaleX(-0.5);
     nxtLevelBtn->setOpacity(0);
+    nxtLevelBtn->setEnabled(false);
     
     auto closeItem = MenuItemImage::create(
                                            "images/ui/back_btn-hd.png",
@@ -269,7 +271,7 @@ void GameScene::initBoards() {
         int x = (int) ( coord.attribute("x").as_float() * visibleSize.width);
         int y = (int) ((1- coord.attribute("y").as_float() )* visibleSize.height);
         boardImage->setOriginalPosition(Vec2( x, y));
-        addChild(boardImage);
+        addChild(boardImage, 8);
         boards.pushBack(boardImage);
     }
 }
