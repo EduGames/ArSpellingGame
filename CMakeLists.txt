@@ -127,7 +127,7 @@ set(GAME_SRC
   Classes/libs/pugixml/pugixml.cpp
   Classes/helpers/wordsXMLHelper.cpp
   Classes/helpers/arLettersUtils.cpp
-  Classes/helpers/lettersSoundUtils.cpp
+  Classes/helpers/soundUtils.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -146,7 +146,7 @@ set(GAME_HEADERS
   Classes/libs/pugixml/pugixml.hpp
   Classes/helpers/wordsXMLHelper.h
   Classes/helpers/arLettersUtils.h
-  Classes/helpers/lettersSoundUtils.h
+  Classes/helpers/soundUtils.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 

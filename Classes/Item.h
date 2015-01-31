@@ -17,7 +17,7 @@ public:
     std::string name;
 protected:
     std::string YELLOW_SQUARE_IMAGE = "images/ui/yellow-square-big-hd.png";
-    std::string IMAGE_SUFFIX = "-hd.png";
+    std::string IMAGE_SUFFIX = ".png";
 };
 
 #endif	/* ITEM_H */

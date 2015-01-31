@@ -22,7 +22,7 @@ bool Item::init() {
 }
 
 void Item::setImage(std::string image) {
-    auto i = ui::ImageView::create("images/fruits/"+image+IMAGE_SUFFIX);
+    auto i = ui::ImageView::create("images/objects/"+image+IMAGE_SUFFIX);
     i->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     i->setScale(0.40);
     i->setPosition(Vec2(getContentSize().width/2,getContentSize().height/2));

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <words>
-	<word name="banana">موزة</word>
-	<word name="carrot">جزرة</word>
-	<word name="cucumber">خيار</word>
-	<word name="kiwi">كيوي</word>
-	<word name="lemon">ليمون</word>
-	<word name="mushroom">مشروم</word>
-	<word name="potato">بطاطس</word>
-	<word name="tomato">طماطم</word>
-	<word name="zucchini">كوسة</word>
+	<word name="duck">بطة</word>
+	<word name="bee">نحلة</word>
+	<word name="horse">حصان</word>
+	<word name="lion">أسد</word>
+	<word name="frog">ضفدع</word>
+	<word name="dog">كلب</word>
+	<word name="monkey">قرد</word>
+	<word name="bat">خفاش</word>
 </words>

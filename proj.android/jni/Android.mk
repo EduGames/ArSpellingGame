@@ -24,7 +24,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/libs/pugixml/pugixml.cpp \
 				   ../../Classes/helpers/wordsXMLHelper.cpp \
 				   ../../Classes/helpers/arLettersUtils.cpp \
-				   ../../Classes/helpers/lettersSoundUtils.cpp
+				   ../../Classes/helpers/soundUtils.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
