@@ -21,12 +21,20 @@ void soundUtils::playSound(std::string letter) {
     std::sprintf(numstr, "%i", number);
     std::string result__ = numstr + std::string(".mp3");
     if (number < 10) result__ = "0" + result__;
-    result__ = std::string("sounds/letters/02/") + result__;
+    
+    result__ = std::string(getLettersFolder()) + result__;
     const char * audio_file = result__.c_str();
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(audio_file);
 }
 void soundUtils::playword(std::string word) {
-    std::string result__ = std::string("sounds/words/") + word + std::string(".mp3");
+    std::string result__ = std::string(getWordsFolder()) + word + std::string(".mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(result__.c_str());
-    //playDelayed(result__, 1.0f);
+}
+
+std::string soundUtils::getWordsFolder(){
+    return "sounds/words/";
+}
+
+std::string soundUtils::getLettersFolder(){
+    return "sounds/letters/02/";
 }

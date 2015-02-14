@@ -12,15 +12,15 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-				   ../../Classes/MainMenuScene.cpp \
-				   ../../Classes/GameScene.cpp \
-				   ../../Classes/Item.cpp \
-				   ../../Classes/SmallItem.cpp \
-				   ../../Classes/FruitsPage.cpp \
-				   ../../Classes/PageViewWIndicator.cpp \
-				   ../../Classes/PageIndicator.cpp \
-				   ../../Classes/PageIndicatorItem.cpp \
-				   ../../Classes/Board.cpp \
+				   ../../Classes/scenes/MainMenuScene.cpp \
+				   ../../Classes/scenes/GameScene.cpp \
+				   ../../Classes/objects/Item.cpp \
+				   ../../Classes/objects/SmallItem.cpp \
+				   ../../Classes/ui/FruitsPage.cpp \
+				   ../../Classes/ui/PageViewWIndicator.cpp \
+				   ../../Classes/objects/PageIndicator.cpp \
+				   ../../Classes/objects/PageIndicatorItem.cpp \
+				   ../../Classes/objects/Board.cpp \
 				   ../../Classes/libs/pugixml/pugixml.cpp \
 				   ../../Classes/helpers/wordsXMLHelper.cpp \
 				   ../../Classes/helpers/arLettersUtils.cpp \

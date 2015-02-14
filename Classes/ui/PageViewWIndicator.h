@@ -9,7 +9,7 @@
 #define	PAGEVIEWWINDICATOR_H
 
 #include "cocos2d.h"
-#include "PageIndicator.h"
+#include "../objects/PageIndicator.h"
 #include <ui/CocosGUI.h>
 class PageViewWIndicator : public cocos2d::ui::Layout{
 public:

@@ -6,8 +6,8 @@
  */
 
 #include "FruitsPage.h"
-#include "SmallItem.h"
-#include "GameScene.h"
+#include "objects/SmallItem.h"
+#include "scenes/GameScene.h"
 USING_NS_CC;
 
 FruitsPage* FruitsPage::createWithList(Size size, std::vector<std ::string> images) {

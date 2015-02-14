@@ -15,7 +15,8 @@ public:
     static void playSound(std::string letter);
     static void playword(std::string word);
 private:
-
+    static std::string getWordsFolder();
+    static std::string getLettersFolder();
 };
 
 #endif	/* LETTERSSOUNDUTILS_H */

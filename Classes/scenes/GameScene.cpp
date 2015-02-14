@@ -6,7 +6,7 @@
  */
 
 #include "GameScene.h"
-#include "Item.h"
+#include "objects/Item.h"
 #include "MainMenuScene.h"
 #include "helpers/wordsXMLHelper.h"
 #include "libs/pugixml/pugixml.hpp"

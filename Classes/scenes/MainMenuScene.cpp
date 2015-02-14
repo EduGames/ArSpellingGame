@@ -1,6 +1,6 @@
 #include "MainMenuScene.h"
-#include "FruitsPage.h"
-#include "PageViewWIndicator.h"
+#include "../ui/FruitsPage.h"
+#include "../ui/PageViewWIndicator.h"
 #include "libs/pugixml/pugixml.hpp"
 #include "helpers/wordsXMLHelper.h"
 USING_NS_CC;

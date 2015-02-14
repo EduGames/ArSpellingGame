@@ -115,15 +115,15 @@ include_directories(
 
 set(GAME_SRC
   Classes/AppDelegate.cpp
-  Classes/MainMenuScene.cpp
-  Classes/GameScene.cpp
-  Classes/Item.cpp
-  Classes/SmallItem.cpp
-  Classes/FruitsPage.cpp
-  Classes/PageViewWIndicator.cpp
-  Classes/PageIndicator.cpp
-  Classes/PageIndicatorItem.cpp
-  Classes/Board.cpp
+  Classes/scenes/MainMenuScene.cpp
+  Classes/scenes/GameScene.cpp
+  Classes/objects/Item.cpp
+  Classes/objects/SmallItem.cpp
+  Classes/ui/FruitsPage.cpp
+  Classes/ui/PageViewWIndicator.cpp
+  Classes/objects/PageIndicator.cpp
+  Classes/objects/PageIndicatorItem.cpp
+  Classes/objects/Board.cpp
   Classes/libs/pugixml/pugixml.cpp
   Classes/helpers/wordsXMLHelper.cpp
   Classes/helpers/arLettersUtils.cpp
@@ -133,15 +133,15 @@ set(GAME_SRC
 
 set(GAME_HEADERS
   Classes/AppDelegate.h
-  Classes/MainMenuScene.h
-  Classes/GameScene.h
-  Classes/Item.h
-  Classes/SmallItem.h
-  Classes/FruitsPage.h
-  Classes/PageViewWIndicator.h
-  Classes/PageIndicator.h
-  Classes/PageIndicatorItem.h
-  Classes/Board.h
+  Classes/scenes/MainMenuScene.h
+  Classes/scenes/GameScene.h
+  Classes/objects/Item.h
+  Classes/objects/SmallItem.h
+  Classes/ui/FruitsPage.h
+  Classes/ui/PageViewWIndicator.h
+  Classes/objects/PageIndicator.h
+  Classes/objects/PageIndicatorItem.h
+  Classes/objects/Board.h
   Classes/libs/pugixml/pugiconfig.hpp
   Classes/libs/pugixml/pugixml.hpp
   Classes/helpers/wordsXMLHelper.h

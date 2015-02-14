@@ -8,7 +8,7 @@
 #ifndef GAMESCENE_H
 #define	GAMESCENE_H
 #include "cocos2d.h"
-#include "Board.h"
+#include "objects/Board.h"
 #include <ui/CocosGUI.h>
 
 inline const char * const BoolToString(bool b)
