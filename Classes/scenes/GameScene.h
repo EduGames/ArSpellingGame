@@ -48,6 +48,7 @@ private:
     bool hintShowCompleted;
     
     cocos2d::MenuItemImage * nxtLevelBtn;
+    cocos2d::MenuItemImage * wordSoundBtn;
     
     void menuCloseCallback();
     void checkForGameSolved();
