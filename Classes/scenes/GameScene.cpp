@@ -80,8 +80,9 @@ bool GameScene::onTouchBegan(Touch* touch, Event* unused_event) {
         return true;
     }
     for (auto board: this->boards){
-        if(board->getBoundingBox().containsPoint(touch->getLocation()) && !board->IsSolved()){
-            moving_board = board;
+        if(board->getBoundingBox().containsPoint(touch->getLocation())){
+            soundUtils::playSound(board->getName());
+            if(!board->IsSolved()) moving_board = board;
             return true;
         }
     }
