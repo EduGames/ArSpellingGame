@@ -10,6 +10,7 @@
 #include "cocos2d.h"
 #include "objects/Board.h"
 #include <ui/CocosGUI.h>
+#include "objects/Item.h"
 
 inline const char * const BoolToString(bool b)
 {
@@ -35,6 +36,7 @@ private:
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
     
+    Item* item;
     std::string _item_name;
     std::string _item_name_english;
     

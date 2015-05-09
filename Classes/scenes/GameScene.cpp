@@ -6,7 +6,6 @@
  */
 
 #include "GameScene.h"
-#include "objects/Item.h"
 #include "MainMenuScene.h"
 #include "helpers/wordsXMLHelper.h"
 #include "libs/pugixml/pugixml.hpp"
@@ -59,7 +58,7 @@ bool GameScene::initWithItem(std::string item_name) {
     bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     addChild(bg,-1);
     
-    auto item = Item::create();
+    item = Item::create();
     item->setImage(item_name);
     item->setPosition(Vec2(visibleSize.width /2  + origin.x - item->getContentSize().width / 2, visibleSize.height /2 + origin.y - item->getContentSize().height / 4));
     addChild(item);
@@ -85,6 +84,10 @@ bool GameScene::onTouchBegan(Touch* touch, Event* unused_event) {
             if(!board->IsSolved()) moving_board = board;
             return true;
         }
+    }
+    if(item->getBoundingBox().containsPoint(touch->getLocation())){
+        playWordsound();
+        return true;
     }
     return false;
 }
@@ -117,7 +120,9 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
         }
     }
     if(!solved){
-        auto moveTo = MoveTo::create(0.5,moving_board->getOriginalPosition());
+        auto moveTo = MoveTo::create(0.5,moving_board->getPosition() + 
+            ((moving_board->getOriginalPosition() - moving_board->getPosition()).getNormalized() * 10)
+        );
         auto action = EaseElasticOut::create(moveTo, 0.5);
         moving_board->runAction(action);
     }
