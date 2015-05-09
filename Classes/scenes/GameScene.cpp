@@ -120,14 +120,41 @@ void GameScene::onTouchEnded(Touch* touch, Event* unused_event) {
         }
     }
     if(!solved){
-        auto moveTo = MoveTo::create(0.5,moving_board->getPosition() + 
-            ((moving_board->getOriginalPosition() - moving_board->getPosition()).getNormalized() * 10)
-        );
+        Vec2 targetPosition = moving_board->getPosition() + 
+            ((moving_board->getOriginalPosition() - moving_board->getPosition()).getNormalized() * 10);
+       
+        for(auto board : boards){
+            if (board->getBoundingBox().intersectsRect(moving_board->getBoundingBox())){
+                Vec2 offset = (moving_board->getPosition() - board->getPosition()).getNormalized() * board->getBoundingBox().size.width;
+                targetPosition += offset;
+                if (!boardInsideScreen(moving_board, targetPosition)){
+                    targetPosition -= 3 * offset;
+                }
+            }
+            
+        }
+        if (!boardInsideScreen(moving_board, targetPosition)){
+                targetPosition = moving_board->getPosition() + 
+            ((moving_board->getOriginalPosition() - moving_board->getPosition()).getNormalized() * moving_board->getBoundingBox().size.width);
+        }
+        auto moveTo = MoveTo::create(0.5, targetPosition);
         auto action = EaseElasticOut::create(moveTo, 0.5);
         moving_board->runAction(action);
     }
     moving_board = nullptr;
 }
+
+bool GameScene::boardInsideScreen(Board* moving_board, cocos2d::Vec2 targetPosition) {
+    Size rect = moving_board->getBoundingBox().size;
+    if ( targetPosition.x + rect.width > visibleSize.width || targetPosition.x - rect.width < 0 ||
+            targetPosition.y + rect.height > visibleSize.height || targetPosition.y - rect.height < 0){
+        CCLOG("OUTSIDE SCREEN");
+        return false;
+    }
+    CCLOG("INSIDE SCREEN");
+    return true;
+}
+
 
 void GameScene::menuCloseCallback()
 {

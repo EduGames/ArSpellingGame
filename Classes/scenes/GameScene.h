@@ -67,6 +67,7 @@ private:
     void goToNextLvl();
     
     void playWordsound();
+    bool boardInsideScreen(Board* moving_board,cocos2d::Vec2 targetPosition);
 };
 
 #endif	/* GAMESCENE_H */
