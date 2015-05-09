@@ -29,6 +29,7 @@ bool Board::initWithLetter(const std::string c) {
     text->setPosition(Vec2(50,60));
     text->setFontSize(70);
     addChild(text);
+    isSolved = false;
     return true;
 }
 
