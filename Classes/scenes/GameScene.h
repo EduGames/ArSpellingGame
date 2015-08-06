@@ -11,13 +11,15 @@
 #include "objects/Board.h"
 #include <ui/CocosGUI.h>
 #include "objects/Item.h"
+#include "objects/HintView.h"
+#include "../vo/Word.h"
 
 inline const char * const BoolToString(bool b)
 {
   return b ? "true" : "false";
 }
 
-
+class HintView;
 class GameScene : public cocos2d::Layer {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -37,17 +39,12 @@ private:
     cocos2d::Vec2 origin;
     
     Item* item;
-    std::string _item_name;
-    std::string _item_name_english;
+    Word word;
     
     Board* moving_board;
     cocos2d::Vector<Board*> boards;
     
     cocos2d::ui::Layout *targets_container;
-    
-    cocos2d::ui::Layout *hint_container;
-    cocos2d::Sprite* hintBtn;
-    bool hintShowCompleted;
     
     cocos2d::MenuItemImage * nxtLevelBtn;
     cocos2d::MenuItemImage * wordSoundBtn;
@@ -57,17 +54,15 @@ private:
     void setGameSolved();
     void showNextLevelBtn();
     void initMenu();
-    void initHint();
     void initTargets();
     void initBoards();
     void initTouchEvents();
-    void showHint();
-    void hideHint();
-    void onHintShowCompleted();
     void goToNextLvl();
     
     void playWordsound();
     bool boardInsideScreen(Board* moving_board,cocos2d::Vec2 targetPosition);
+    
+    HintView* hint;
 };
 
 #endif	/* GAMESCENE_H */
