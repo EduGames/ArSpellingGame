@@ -119,6 +119,7 @@ set(GAME_SRC
   Classes/scenes/GameScene.cpp
   Classes/objects/Item.cpp
   Classes/objects/HintView.cpp
+  Classes/objects/MenuView.cpp
   Classes/objects/SmallItem.cpp
   Classes/ui/FruitsPage.cpp
   Classes/ui/PageViewWIndicator.cpp
@@ -139,6 +140,7 @@ set(GAME_HEADERS
   Classes/scenes/GameScene.h
   Classes/objects/Item.h
   Classes/objects/HintView.h
+  Classes/objects/MenuView.h
   Classes/objects/SmallItem.h
   Classes/ui/FruitsPage.h
   Classes/ui/PageViewWIndicator.h

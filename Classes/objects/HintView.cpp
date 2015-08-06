@@ -20,6 +20,7 @@ HintView* HintView::createWithWord(const Word word) {
 
 bool HintView::initWithWord(Word word) {
     if(Node::init()){
+        this->word = word;
         auto visibleSize = Director::getInstance()->getVisibleSize();
         auto origin = Director::getInstance()->getVisibleOrigin();
     
@@ -51,7 +52,7 @@ bool HintView::initWithWord(Word word) {
         auto actionS = Spawn::create(move, scale, NULL);
         auto actionSR = Spawn::create(MoveTo::create(0.0001 , Vec2(visibleSize.width /2, visibleSize.height /2)), ScaleTo::create(0.0001, 1), NULL);
         auto action = Sequence::create(delay->clone(), 
-//                CallFunc::create( CC_CALLBACK_0(HintView::playWordsound, this)),
+                CallFunc::create( CC_CALLBACK_0(HintView::playWordsound, this)),
                 delay->clone(),
                 actionS, Hide::create(),actionSR,
                 CallFunc::create( CC_CALLBACK_0(HintView::onHintShowCompleted, this)),

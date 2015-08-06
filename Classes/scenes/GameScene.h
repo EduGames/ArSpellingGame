@@ -12,6 +12,7 @@
 #include <ui/CocosGUI.h>
 #include "objects/Item.h"
 #include "objects/HintView.h"
+#include "objects/MenuView.h"
 #include "../vo/Word.h"
 
 inline const char * const BoolToString(bool b)
@@ -20,6 +21,7 @@ inline const char * const BoolToString(bool b)
 }
 
 class HintView;
+class MenuView;
 class GameScene : public cocos2d::Layer {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -46,23 +48,18 @@ private:
     
     cocos2d::ui::Layout *targets_container;
     
-    cocos2d::MenuItemImage * nxtLevelBtn;
-    cocos2d::MenuItemImage * wordSoundBtn;
-    
-    void menuCloseCallback();
     void checkForGameSolved();
     void setGameSolved();
     void showNextLevelBtn();
-    void initMenu();
     void initTargets();
     void initBoards();
     void initTouchEvents();
-    void goToNextLvl();
     
     void playWordsound();
     bool boardInsideScreen(Board* moving_board,cocos2d::Vec2 targetPosition);
     
     HintView* hint;
+    MenuView* menu;
 };
 
 #endif	/* GAMESCENE_H */
