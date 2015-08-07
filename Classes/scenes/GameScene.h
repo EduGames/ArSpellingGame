@@ -11,8 +11,9 @@
 #include "objects/Board.h"
 #include <ui/CocosGUI.h>
 #include "objects/Item.h"
-#include "objects/HintView.h"
-#include "objects/MenuView.h"
+#include "gameViews/HintView.h"
+#include "gameViews/MenuView.h"
+#include "gameViews/GameView.h"
 #include "../vo/Word.h"
 
 inline const char * const BoolToString(bool b)
@@ -22,6 +23,8 @@ inline const char * const BoolToString(bool b)
 
 class HintView;
 class MenuView;
+class GameView;
+
 class GameScene : public cocos2d::Layer {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -31,11 +34,11 @@ public:
     bool initWithItem(std::string item_name);
     static GameScene* createWithItem(std::string item_name);
 
-    virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* unused_event);
-    virtual void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* unused_event);
-    virtual void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* unused_event);
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* unused_event);
+    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* unused_event);
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* unused_event);
     
-    
+    void setGameSolved();
 private:
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
@@ -43,13 +46,6 @@ private:
     Item* item;
     Word word;
     
-    Board* moving_board;
-    cocos2d::Vector<Board*> boards;
-    
-    cocos2d::ui::Layout *targets_container;
-    
-    void checkForGameSolved();
-    void setGameSolved();
     void showNextLevelBtn();
     void initTargets();
     void initBoards();
@@ -60,6 +56,7 @@ private:
     
     HintView* hint;
     MenuView* menu;
+    GameView* game;
 };
 
 #endif	/* GAMESCENE_H */
