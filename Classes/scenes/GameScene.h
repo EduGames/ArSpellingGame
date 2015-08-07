@@ -8,7 +8,6 @@
 #ifndef GAMESCENE_H
 #define	GAMESCENE_H
 #include "cocos2d.h"
-#include "objects/Board.h"
 #include <ui/CocosGUI.h>
 #include "objects/Item.h"
 #include "gameViews/HintView.h"
@@ -47,12 +46,9 @@ private:
     Word word;
     
     void showNextLevelBtn();
-    void initTargets();
-    void initBoards();
     void initTouchEvents();
     
     void playWordsound();
-    bool boardInsideScreen(Board* moving_board,cocos2d::Vec2 targetPosition);
     
     HintView* hint;
     MenuView* menu;

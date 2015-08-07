@@ -8,7 +8,6 @@
 #include "GameScene.h"
 #include "MainMenuScene.h"
 #include "helpers/wordsXMLHelper.h"
-#include "libs/pugixml/pugixml.hpp"
 #include "helpers/soundUtils.h"
 
 USING_NS_CC;
@@ -41,17 +40,17 @@ bool GameScene::initWithItem(std::string item_name) {
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
     
+    auto bg = Sprite::create("images/ui/background-hd.jpg");
+    bg->setScale(0.5);
+    bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    addChild(bg,-1);
+    
     menu = MenuView::createWithWord(word);
     addChild(menu, 9999);
     
     hint = HintView::createWithWord(word);
     addChild(hint, 999);
 
-    auto bg = Sprite::create("images/ui/background-hd.jpg");
-    bg->setScale(0.5);
-    bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    addChild(bg,-1);
-    
     item = Item::create();
     item->setImage(item_name);
     item->setPosition(Vec2(visibleSize.width /2  + origin.x - item->getContentSize().width / 2, visibleSize.height /2 + origin.y - item->getContentSize().height / 4));

@@ -36,6 +36,5 @@ std::string wordsXMLHelper::getArabicWord(std::string currentWord) {
     ssize_t bufferSize = 0;
     pBuffer = FileUtils::getInstance()->getFileData(file_path.c_str(), "r", &bufferSize);
     _levelData.load_buffer(pBuffer,bufferSize);
-    CCLOG("%s",_levelData.child("words").find_child_by_attribute("name",currentWord.c_str()).text().as_string());
     return _levelData.child("words").find_child_by_attribute("name",currentWord.c_str()).text().as_string();
 }
